@@ -7,12 +7,19 @@
 # Author:
 #   wylie
 
-speaks = ['Woof', 'Bark', 'Grrr']
+noises = ['Woof', 'Bark', 'Grrr', 'Ruff']
+phrases = [
+  'Does anybody want to play?',
+  'I think I hear somebody at the door… grrr',
+  'I\'d really like to get up on the couch.',
+  'Cats sure are tasty'
+]
+
 module.exports = (robot) ->
   robot.respond /speak/i, (res) ->
-    res.send res.random speaks
+    res.send res.random noises
 
   robot.hear /i/i, (res) ->
     setTimeout () ->
-      res.send res.random speaks
-    , 2 * 60 * 1000
+      res.send res.random (phrases || noises)
+    , Math.ceil(Math.random() * 1000000)
