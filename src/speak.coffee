@@ -19,7 +19,7 @@ module.exports = (robot) ->
   robot.respond /speak/i, (res) ->
     res.send res.random noises
 
-  robot.hear /i/i, (res) ->
+  robot.hear /you/i, (res) ->
     setTimeout () ->
       res.send res.random (phrases || noises)
     , Math.ceil(Math.random() * 1000000)
