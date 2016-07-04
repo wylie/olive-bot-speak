@@ -1,0 +1,36 @@
+{
+  "name": "olive-bot-speak",
+  "version": "0.0.1",
+  "description": "It speaks!",
+  "main": "index.coffee",
+  "author": {
+    "name": "Wylie Fisher",
+    "email": "wylie@dukeofcheese.com",
+    "url": "https://github.com/wylie"
+  },
+  "keywords": [
+    "hubot",
+    "olive",
+    "olive-bot",
+    "dog",
+    "speak"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/wylie/olive-bot-speak/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wylie/olive-bot-speak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wylie/olive-bot-speak/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon-chai": "*",
+    "sinon": "*"
+  }
+}
