@@ -7,7 +7,8 @@
 # Author:
 #   wylie
 
-noises = ['Woof', 'Bark', 'Grrr', 'Ruff']
+# noises = ['Woof', 'Bark', 'Grrr', 'Ruff']
+noises = ['Help', 'Me', 'Please', 'Sir']
 phrases = [
   'Does anybody want to play?',
   'I think I hear somebody at the door… grrr',
@@ -21,10 +22,9 @@ module.exports = (robot) ->
     res.send res.random noises
 
   # randomly talk throughout the day
-  robot.hear /you/i, (res) ->
-    setTimeout () ->
-      res.send res.random (phrases || noises)
-    , Math.ceil(Math.random() * 1000000)
+  setTimeout () ->
+    robot.send room: 'general', res.random (phrases || noises)
+  , Math.ceil(Math.random() * 1000000)
 
   # ask about the channel topic change
   robot.topic (res) ->
