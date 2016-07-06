@@ -22,10 +22,15 @@ module.exports = (robot) ->
     res.send res.random noises
 
   # randomly talk throughout the day
-  setTimeout () ->
-    robot.send room: 'general', res.random phrases
-  , Math.ceil(Math.random() * 1000000)
-
+  # setTimeout () ->
+  #   robot.send room: 'general', res.random phrases
+  # , Math.ceil(Math.random() * 1000000)
+  intervalID = setInterval((->
+    num = Math.floor(Math.random() * phrases.length)
+    robot.send room: 'general', res.random phrases[num];
+    return
+  ), Math.ceil(Math.random() * 1000000))
+  
   # ask about the channel topic change
   robot.topic (res) ->
     res.send "Are you sure you want change the channel topic to #{res.message.text}?"
