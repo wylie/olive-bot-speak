@@ -8,7 +8,6 @@
 #   wylie
 
 noises = ['Woof', 'Bark', 'Grrr', 'Ruff']
-# noises = ['Help', 'Me', 'Please', 'Sir']
 phrases = [
   'Does anybody want to play?',
   'I think I hear somebody at the door… grrr',
@@ -29,7 +28,7 @@ module.exports = (robot) ->
     num = Math.floor(Math.random() * phrases.length)
     robot.send room: 'general', res.random phrases[num];
     return
-  ), Math.ceil(Math.random() * 1000000))
+  ), Math.ceil(Math.random() * 1000))
   
   # ask about the channel topic change
   robot.topic (res) ->
