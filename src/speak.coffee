@@ -24,7 +24,7 @@ module.exports = (robot) ->
   # setTimeout () ->
   #   robot.send room: 'general', res.random phrases
   # , Math.ceil(Math.random() * 1000000)
-  intervalID = setInterval((->
+  setInterval((->
     num = Math.floor(Math.random() * phrases.length)
     robot.send room: 'general', res.random phrases[num];
     return
