@@ -65,7 +65,7 @@ module.exports = (robot) ->
   setInterval((->
     num = Math.floor(Math.random() * phrases.length)
     robot.send room: 'general', phrases[num];
-  ), Math.ceil(Math.random() * 1000000))
+  ), Math.ceil(Math.random() * 100000000))
 
   # ask about the channel topic change
   robot.topic (res) ->
