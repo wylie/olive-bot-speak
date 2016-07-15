@@ -161,12 +161,3 @@ module.exports = (robot) ->
         final += second + ' second'
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
-
-#  hour = (new Date).getHours()
-#  minutes = (new Date).getMinutes()
-#  if hour == 0 and minutes == 0
-#    robot.brain.set 'totalMilk', 0
-#    robot.send room: 'oslo', "The daily log has been cleared :+1:";
-#  if hour == 14 and minutes == 0
-#    robot.brain.set 'totalMilk', 0
-#    robot.send room: 'oslo', "The daily log has been cleared :+1:";
