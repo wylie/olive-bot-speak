@@ -150,6 +150,7 @@ module.exports = (robot) ->
       res.reply 'Sure!'
 
     robot.brain.set 'totalBiscuits', biscuitsHad+1
+    
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalBiscuits', 0
     msg.reply 'zzzzz'
