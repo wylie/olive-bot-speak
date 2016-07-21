@@ -9,6 +9,7 @@
 #   hubot start timer - Start the timer
 #   hubot show timer - Show the timers progress
 #   hubot stop timer - Stop the timer
+#   hubot biscuit - have a biscuit!
 #
 # Author:
 #   wylie
@@ -140,11 +141,24 @@ module.exports = (robot) ->
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
 
+  # have a biscuit
+  robot.respond /have a biscuit/i, (res) ->
+    sodasHad = robot.brain.get('totalBiscuits') * 1 or 0
+    if sodasHad > 4
+      res.reply "I'm too full..."
+    else
+      res.reply 'Sure!'
+
+    robot.brain.set 'totalBiscuits', biscuitsHad+1
+  robot.respond /sleep it off/i, (res) ->
+    robot.brain.set 'totalBiscuits', 0
+    msg.reply 'zzzzz'
+
   # LISTEN
   
-  # biscuit?!
-  robot.hear /biscuit/i, (res) ->
-    res.send "I'd love a biscuit please!"
+  # bone?!
+  robot.hear /bone/i, (res) ->
+    res.send "I love bones!"
 
   # walks?!
   robot.hear /walk/i, (res) ->
@@ -172,4 +186,3 @@ module.exports = (robot) ->
   robot.enter (res) ->
     randomReply = res.random enterReplies
     res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
-
