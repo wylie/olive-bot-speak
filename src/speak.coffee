@@ -150,6 +150,12 @@ module.exports = (robot) ->
   robot.hear /walk/i, (res) ->
     res.send "Did somebody say walk?!"
 
+  # beer
+  beers = [':beers: are on @bobandy: tonight!',':beers: are on @esimons: tonight!',':beers: are on @wylie: tonight!',':beers: are on @slackbot: tonight!','did somebody say beer? Who wants some?','no thanks, I\'m already drunk...','http://www.leeabbamonte.com/wp-content/uploads/2015/03/Beer-1.jpg']
+  robot.hear /beer/i, (res) ->
+    randomReply = res.random beers
+    res.send randomReply
+
   # NOTICE
 
   # randomly talk throughout the day
