@@ -4,7 +4,7 @@
 # Commands:
 #   hubot speak - It speaks!
 #   hubot log N - Log N units of milk
-#   hubot daily log - Find out how many units of milk Oslo has had today
+#   hubot daily log - Find out how many units of milk have been logged today
 #   hubot clear log - Clear the daily log
 #   hubot start timer - Start the timer
 #   hubot show timer - Show the timers progress
@@ -63,38 +63,16 @@ phrases = [
 ]
 
 module.exports = (robot) ->
+
+  # RESOND
+
   # speak
   robot.respond /speak/i, (res) ->
     res.send res.random noises
 
-  # randomly talk throughout the day
-  setInterval((->
-    num = Math.floor(Math.random() * phrases.length)
-    robot.send room: 'general', phrases[num];
-  ), Math.ceil(Math.random() * 100000000))
-
-  # ask about the channel topic change
-  robot.topic (res) ->
-    res.send "Are you sure you want change the channel topic to #{res.message.text}?"
-
-  # biscuit?!
-  robot.respond /would you like a biscuit/i, (res) ->
-    res.send "yes, please!"
-
-  # walks?!
-  robot.hear /walk/i, (res) ->
-    res.send "Did somebody say walk?!"
-
-  # new user enter room welcome
-  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
-  robot.enter (res) ->
-    randomReply = res.random enterReplies
-    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
-
   babyName = 'Oslo'
   units = 'ounces'
   room = '#oslo'
-
   # add to log
   robot.respond /log (.*)/i, (res) ->
     newMilk = res.match[1]
@@ -111,7 +89,7 @@ module.exports = (robot) ->
       res.reply "#{babyName} has had a total of *#{totalMilk}* #{units} of milk today! :baby_bottle:"
 
   # clear log
-  robot.hear /clear log/i, (res) ->
+  robot.respond /clear log/i, (res) ->
     robot.brain.set 'totalMilk', 0
     res.reply "The daily log has been cleared :+1:"
 
@@ -161,3 +139,32 @@ module.exports = (robot) ->
         final += second + ' second'
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
+
+  # LISTEN
+  
+  # biscuit?!
+  robot.hear /biscuit/i, (res) ->
+    res.send "I'd love a biscuit please!"
+
+  # walks?!
+  robot.hear /walk/i, (res) ->
+    res.send "Did somebody say walk?!"
+
+  # NOTICE
+
+  # randomly talk throughout the day
+  setInterval((->
+    num = Math.floor(Math.random() * phrases.length)
+    robot.send room: 'general', phrases[num];
+  ), Math.ceil(Math.random() * 100000000))
+
+  # ask about the channel topic change
+  robot.topic (res) ->
+    res.send "Good job changing the channel topic to #{res.message.text}?"
+
+  # new user enter room welcome
+  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
+  robot.enter (res) ->
+    randomReply = res.random enterReplies
+    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
+
