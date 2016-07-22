@@ -108,8 +108,9 @@ module.exports = (robot) ->
     res.reply 'zzzzz'
     
   robot.respond /users$/i, (res) ->
-    for user in robot.room.users
-      res.reply user.name + "is logged in"
+    res.reply robot.room.users
+  #  for user in robot.room.users
+  #    res.reply user.name + "is logged in"
 
   # speak
   robot.respond /speak/i, (res) ->
