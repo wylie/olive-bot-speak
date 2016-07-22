@@ -101,16 +101,10 @@ module.exports = (robot) ->
   # have a biscuit
   robot.respond /have a soda/i, (res) ->
     sodasHad = robot.brain.get('totalSodas') * 1 or 0
-    if sodasHad = 1
-      res.reply 'Sure!'
-    if sodasHad = 2
-      res.reply 'Thanks… burp!'
-    if sodasHad = 3
-      res.reply 'I don\'t feel so good…'
     if sodasHad >= 4
       res.reply 'I\'m too full...'
     else
-      res.reply 'TIMMY!!'
+      res.reply 'Sure… TIMMY!!'
 
     robot.brain.set 'totalSodas', sodaHad+1
   robot.respond /sleep it off/i, (res) ->
