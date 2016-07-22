@@ -109,18 +109,18 @@ module.exports = (robot) ->
     robot.brain.set 'totalSodas', sodaHad+1
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalSodas', 0
-    msg.reply 'zzzzz'
+    res.reply 'zzzzz'
+    
+  robot.respond /users$/i, (res) ->
+    for user in robot.room.users
+        res.respond user.name + "is logged in"
 
   # LISTEN
 
   # users
-  #robot.hear /hi/i, (res) ->
-  #  res.send context.response.message.user.name
   robot.hear /(hi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
-
-  #  res.send "Hi @#{context.response.message.user.name}! TIMMY!!"
 
   # brother
   brother = ['https://whatistheexcel.com/wooobooru/_images/75c9e97e34573f1f23518e36e40050fe/212%20-%20brother%20hulk_hogan%20macro%20mean_gene_okerlund%20microphone%20sunglasses%20wwe.jpg','http://t.qkme.me/3r68xv.jpg','http://cdn.meme.am/instances/53417899.jpg','http://cdn.meme.am/instances/61855016.jpg','http://i1168.photobucket.com/albums/r486/00GreenRanger/hulkhogan_zpsb7aa8412.jpg','http://www.quickmeme.com/img/be/be450207f2ec5e423298257ca2415fab23fbf53dfb6765070c3d333a42e0a5c5.jpg','http://www.quickmeme.com/img/5f/5f3a5911b741b287a80e45e1d3e7e5af00ebffa0067f3ef6a79aa22afa73caec.jpg']
@@ -129,7 +129,7 @@ module.exports = (robot) ->
 
   # cats
   cats = ['http://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg','http://www.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2014/09/Grumpy_Cat_Endorsement-017d7-ULFU.jpg','http://www.thaqafnafsak.com/wp-content/uploads/2014/05/Animals___Cats_Red_Cat_and_tongue_044659_29.jpg','http://static.giantbomb.com/uploads/original/3/34821/2577499-cat.jpg','http://catswallpaperhd.us/wp-content/uploads/2014/06/male-cats-mating-gsfgeo7g.jpg','https://assets.rbl.ms/435736/640x364.jpg','http://content4.video.news.com.au/NDM_-_news.com.au/150/881/parachuting_cats_648x365_2304624662-hero.jpg','http://www.pets4homes.co.uk/images/articles/1092/large/7-of-the-most-affectionate-cat-breeds-522ed069473c9.jpg','http://i.dailymail.co.uk/i/pix/2014/09/18/1411041513567_wps_11_dmvidpics_2014_09_18_at_1.jpg','http://www.amplifyingglass.com/wp-content/uploads/2014/06/sitting-cat5.jpg']
-  robot.hear /cat/i, (res) ->
+  robot.hear /(cat|s)/i, (res) ->
     res.send res.random cats
 
   # beer
@@ -138,11 +138,11 @@ module.exports = (robot) ->
     res.send ":beers: are on @#{sender} tonight!"
 
   # thanks
-  robot.respond /thank(s| you)/i, (msg) ->
-    msg.send msg.random phrases
-  thanks = new RegExp "thank(s| you) #{robot.name}", "i"
-  robot.hear thanks, (msg) ->
-    msg.send msg.random phrases
+  #robot.respond /thank(s| you)/i, (res) ->
+  #  res.send res.random phrases
+  #thanks = new RegExp "thank(s| you) #{robot.name}", "i"
+  #robot.hear thanks, (res) ->
+  #  res.send res.random phrases
 
   # pokemon
   robot.hear /caught a (.*)/i, (res) ->
