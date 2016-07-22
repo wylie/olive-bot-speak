@@ -128,6 +128,11 @@ module.exports = (robot) ->
   robot.hear /beer/i, (res) ->
     res.send res.random beers
 
+  # pokemon
+  robot.hear /caught a (.*)/i, (res) ->
+    pokemon = res.match[1]
+    res.send "Good job catching that #{pokemon}! TIMMY!!"
+
   # NOTICE
 
   # randomly talk throughout the day
