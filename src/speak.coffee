@@ -103,6 +103,10 @@ module.exports = (robot) ->
     sodasHad = robot.brain.get('totalSodas') * 1 or 0
     if sodasHad > 4
       res.reply "I'm too full..."
+    if sodasHad = 2
+      res.reply "Thanks… burp!"
+    if sodasHad = 3
+      res.reply "I don't feel so good…"
     else
       res.reply 'Sure!'
 
