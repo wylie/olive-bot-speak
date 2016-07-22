@@ -2,14 +2,17 @@
 #   Let's hear Hubot speak!
 #
 # Commands:
-#   hubot speak - It speaks!
-#   hubot log N - Log N units of milk
-#   hubot daily log - Find out how many units of milk have been logged today
 #   hubot clear log - Clear the daily log
-#   hubot start timer - Start the timer
+#   hubot daily log - Find out how many units of milk have been logged today
+#   hubot eightball - Get a Magic Eight Ball answer
+#   hubot flip a coin - Flip a coin
+#   hubot log N - Log N units of milk
 #   hubot show timer - Show the timers progress
-#   hubot stop timer - Stop the timer
+#   hubot roll the die - Roll the dice
 #   hubot soda - have a soda!
+#   hubot speak - It speaks!
+#   hubot start timer - Start the timer
+#   hubot stop timer - Stop the timer
 #
 # Author:
 #   wylie
@@ -18,6 +21,30 @@ phrases = [
   'LIVIN\' A LIE!!',
   'TIMMY!!',
   'TIMMEH!!'
+]
+thecoin = ['heads', 'tails']
+thedie = [1, 2, 3, 4, 5, 6]
+ball = [
+  "It is certain",
+  "It is decidedly so",
+  "Without a doubt",
+  "Yes – definitely",
+  "You may rely on it",
+  "As I see it, yes",
+  "Most likely",
+  "Outlook good",
+  "Signs point to yes",
+  "Yes",
+  "Reply hazy, try again",
+  "Ask again later",
+  "Better not tell you now",
+  "Cannot predict now",
+  "Concentrate and ask again",
+  "Don't count on it",
+  "My reply is no",
+  "My sources say no",
+  "Outlook not so good",
+  "Very doubtful",
 ]
 
 module.exports = (robot) ->
@@ -118,6 +145,23 @@ module.exports = (robot) ->
   robot.respond /speak/i, (res) ->
     res.send res.random phrases
 
+  # choose between
+  robot.respond /choose between ([^"]+)/i, (msg) ->
+      options = msg.match[1].split(' ')
+      msg.reply("Definitely \"#{msg.random options}\".")
+
+
+  # coin
+  robot.respond /(throw|flip|toss) a coin/i, (res) ->
+    res.reply res.random thecoin
+
+  # dice
+  robot.respond /(throw|roll|toss) the die/i, (res) ->
+    res.reply res.random thedie
+
+  robot.respond /(eightball|8ball)(.*)/i, (res) ->
+    res.reply res.random ball
+
   # LISTEN
 
   # users
@@ -170,3 +214,13 @@ module.exports = (robot) ->
     for own key, user of robot.brain.users
       users.push "#{user.name}" if "#{user.name}" != robot.name
     res.send (res.random users).split(" ")[0] + " " + res.match[2] + "!"
+
+  robot.respond /(google)( me)? (.*)/i, (res) ->
+    googleMe res, res.match[3], (url) ->
+      res.send url
+
+googleMe = (res, query, cb) ->
+  res.http('http://www.google.com/search')
+    .query(q: query)
+    .get() (err, res, body) ->
+      cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
