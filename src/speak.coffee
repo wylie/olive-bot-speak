@@ -164,3 +164,9 @@ module.exports = (robot) ->
     randomReply = res.random enterReplies
     sender = res.message.user.name.toLowerCase()
     res.send "#{randomReply}, Hi, @#{sender}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
+
+  robot.respond /(who|qui) (.+)\?/i, (msg) ->
+    users = []
+    for own key, user of robot.brain.users
+      users.push "#{user.name}" if "#{user.name}" != robot.name
+    msg.send (msg.random users).split(" ")[0] + " " + msg.match[2] + "!"
