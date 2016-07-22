@@ -118,7 +118,7 @@ module.exports = (robot) ->
     res.send "This room is: ##{room}"
 
   robot.respond /blam/i, (res) ->
-    for user in res.message.room.users
+    for user in res.message.room
       res.reply user.name + "is logged in"
     
   # speak
