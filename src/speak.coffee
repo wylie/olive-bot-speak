@@ -108,18 +108,20 @@ module.exports = (robot) ->
     res.reply 'zzzzz'
     
   robot.respond /users/i, (res) ->
-    res.reply res.room.users
+    res.reply res.message.users
 
-  robot.respond /kerpow/i, (res) ->
-    res.reply res.users
-    
   robot.respond /room/i, (res) ->
-    room = res.room
+    room = res.message.room
     res.send "This room is: ##{room}"
 
   robot.respond /blam/i, (res) ->
-    for user in res.room
-      res.reply user.name + "is logged in"
+    res.send res.message.users.room
+    # while i < test.length
+    #   console.log test[i]
+    #   i++
+
+    # for user in res.message.room
+    #   res.reply user.name + "is logged in"
     
   # speak
   robot.respond /speak/i, (res) ->
