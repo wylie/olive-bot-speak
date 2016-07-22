@@ -114,8 +114,12 @@ module.exports = (robot) ->
   # LISTEN
 
   # users
-  robot.hear /hi/i, (res) ->
-    res.send context.response.message.user.name
+  #robot.hear /hi/i, (res) ->
+  #  res.send context.response.message.user.name
+  robot.hear /hi/i, (msg) ->
+    sender = msg.message.user.name.toLowerCase()
+    res.send "@#{sender}"
+
   #  res.send "Hi @#{context.response.message.user.name}! TIMMY!!"
 
   # brother
