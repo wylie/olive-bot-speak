@@ -27,24 +27,24 @@ module.exports = (robot) ->
   babyName = 'Oslo'
   units = 'ounces'
   # add to log
-  robot.respond /log ([0-9]*)/i, (res) ->
-    newMilk = res.match[1]
-    oldMilk = robot.brain.get('totalMilk') * 1 or 0
-    robot.brain.set 'totalMilk', parseFloat(oldMilk)+parseFloat(newMilk)
-    res.reply "#{babyName} just had #{newMilk} #{units} of milk! :baby_bottle:"
+  #robot.respond /log ([0-9]*)/i, (res) ->
+  #  newMilk = res.match[1]
+  #  oldMilk = robot.brain.get('totalMilk') * 1 or 0
+  #  robot.brain.set 'totalMilk', parseFloat(oldMilk)+parseFloat(newMilk)
+  #  res.reply "#{babyName} just had #{newMilk} #{units} of milk! :baby_bottle:"
 
   # show log
-  robot.respond /daily log/i, (res) ->
-    totalMilk = robot.brain.get('totalMilk') * 1 or 0
-    if totalMilk < 1
-      res.reply "#{babyName} hasn't had any milk yet today :cry:"
-    else
-      res.reply "#{babyName} has had a total of *#{totalMilk}* #{units} of milk today! :baby_bottle:"
+  #robot.respond /daily log/i, (res) ->
+  #  totalMilk = robot.brain.get('totalMilk') * 1 or 0
+  #  if totalMilk < 1
+  #    res.reply "#{babyName} hasn't had any milk yet today :cry:"
+  #  else
+  #    res.reply "#{babyName} has had a total of *#{totalMilk}* #{units} of milk today! :baby_bottle:"
 
   # clear log
-  robot.respond /clear log/i, (res) ->
-    robot.brain.set 'totalMilk', 0
-    res.reply "The daily log has been cleared :+1:"
+  #robot.respond /clear log/i, (res) ->
+  #  robot.brain.set 'totalMilk', 0
+  #  res.reply "The daily log has been cleared :+1:"
 
   # stop the timer
   robot.respond /start timer/i, (res) ->
@@ -93,7 +93,7 @@ module.exports = (robot) ->
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
 
-  # have a biscuit
+  # have a soda
   robot.respond /have a soda/i, (res) ->
     sodasHad = robot.brain.get('totalSodas') * 1 or 0
     if sodasHad > 4
@@ -102,22 +102,23 @@ module.exports = (robot) ->
       res.reply 'Sure… TIMMY!!'
 
     robot.brain.set 'totalSodas', sodaHad+1
+    
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalSodas', 0
     res.reply 'zzzzz'
     
-  robot.respond /users$/i, (res) ->
-    for user in robot.room.users
-      res.reply user.name + "is logged in"
+  #robot.respond /users$/i, (res) ->
+  #  for user in robot.room.users
+  #    res.reply user.name + "is logged in"
 
   # speak
   robot.respond /speak/i, (res) ->
-    res.send "TIMMY!!"
+    res.send res.random phrases
 
   # LISTEN
 
   # users
-  robot.hear /hi\b/gi, (res) ->
+  robot.hear /(hi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
 
