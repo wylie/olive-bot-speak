@@ -140,7 +140,7 @@ module.exports = (robot) ->
 
   # users
   robot.respond /all users/i, (res) ->
-    res.reply res.message.users
+    res.reply res.message.users.length
 
   # room
   robot.respond /room/i, (res) ->
