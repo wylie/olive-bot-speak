@@ -111,9 +111,9 @@ module.exports = (robot) ->
     robot.brain.set 'totalSodas', 0
     res.reply 'zzzzz'
     
-  robot.respond /users$/i, (res) ->
-    for user in robot.room.users
-        res.respond user.name + "is logged in"
+  #robot.respond /users$/i, (res) ->
+  #  for user in robot.room.users
+  #      res.respond user.name + "is logged in"
 
   # LISTEN
 
