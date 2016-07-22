@@ -109,6 +109,13 @@ module.exports = (robot) ->
     
   robot.respond /users/i, (res) ->
     res.reply res.message.room.users
+
+  robot.respond /kerpow/i, (res) ->
+    res.reply res.message.users
+    
+  robot.respond /room/i, (res) ->
+    res.send "This room is: #{res.message.room}"
+    
   #  for user in robot.room.users
   #    res.reply user.name + "is logged in"
 
