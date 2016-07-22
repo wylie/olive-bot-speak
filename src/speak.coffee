@@ -112,12 +112,12 @@ module.exports = (robot) ->
 
   # speak
   robot.respond /speak/i, (res) ->
-    res.reply res.random phrases
+    res.send "TIMMY!!"
 
   # LISTEN
 
   # users
-  robot.hear /(hi\b)/gi, (res) ->
+  robot.hear /hi\b/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
 
