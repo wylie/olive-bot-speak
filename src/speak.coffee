@@ -114,11 +114,13 @@ module.exports = (robot) ->
     res.reply res.message.users
     
   robot.respond /room/i, (res) ->
-    res.send "This room is: #{res.message.room}"
-    
-  #  for user in robot.room.users
-  #    res.reply user.name + "is logged in"
+    room = res.message.room
+    res.send "This room is: ##{room}"
 
+  robot.respond /blam/i, (res) ->
+    for user in res.message.room.users
+      res.reply user.name + "is logged in"
+    
   # speak
   robot.respond /speak/i, (res) ->
     res.send res.random phrases
