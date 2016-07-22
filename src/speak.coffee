@@ -127,6 +127,14 @@ module.exports = (robot) ->
   beers = [':beers: are on @gjjones: tonight!',':beers: are on @mpivnick: tonight!',':beers: are on @bobandy: tonight!',':beers: are on @esimons: tonight!',':beers: are on @wylie: tonight!',':beers: are on @slackbot: tonight!','did somebody say beer? Who wants some?','no thanks, I\'m already drunk...','http://www.leeabbamonte.com/wp-content/uploads/2015/03/Beer-1.jpg']
   robot.hear /beer/i, (res) ->
     res.send res.random beers
+    
+  # thanks
+  robot.respond /thank(s| you)/i, (msg) ->
+    msg.send msg.random phrases
+  thanks = new RegExp "thank(s| you) #{robot.name}", "i"
+  robot.hear thanks, (msg) ->
+    msg.send msg.random phrases
+    
 
   # pokemon
   robot.hear /caught a (.*)/i, (res) ->
