@@ -106,9 +106,9 @@ module.exports = (robot) ->
     if sodasHad = 2
       res.reply 'Thanks… burp!'
     if sodasHad = 3
-      res.reply 'I don't feel so good…'
+      res.reply 'I don\'t feel so good…'
     if sodasHad >= 4
-      res.reply 'I'm too full...'
+      res.reply 'I\'m too full...'
     else
       res.reply 'TIMMY!!'
 
