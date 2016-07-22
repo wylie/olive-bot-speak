@@ -113,6 +113,11 @@ module.exports = (robot) ->
 
   # LISTEN
 
+  # users
+  robot.hear /hi/i, (res) ->
+    res.send "Hi @#{context.response.message.user.name}! TIMMY!!"
+  )
+
   # brother
   brother = ['https://whatistheexcel.com/wooobooru/_images/75c9e97e34573f1f23518e36e40050fe/212%20-%20brother%20hulk_hogan%20macro%20mean_gene_okerlund%20microphone%20sunglasses%20wwe.jpg','http://t.qkme.me/3r68xv.jpg','http://cdn.meme.am/instances/53417899.jpg','http://cdn.meme.am/instances/61855016.jpg','http://i1168.photobucket.com/albums/r486/00GreenRanger/hulkhogan_zpsb7aa8412.jpg','http://www.quickmeme.com/img/be/be450207f2ec5e423298257ca2415fab23fbf53dfb6765070c3d333a42e0a5c5.jpg','http://www.quickmeme.com/img/5f/5f3a5911b741b287a80e45e1d3e7e5af00ebffa0067f3ef6a79aa22afa73caec.jpg']
   robot.hear /brother/i, (res) ->
@@ -134,7 +139,6 @@ module.exports = (robot) ->
   thanks = new RegExp "thank(s| you) #{robot.name}", "i"
   robot.hear thanks, (msg) ->
     msg.send msg.random phrases
-    
 
   # pokemon
   robot.hear /caught a (.*)/i, (res) ->
