@@ -133,10 +133,10 @@ module.exports = (robot) ->
     res.send res.random cats
 
   # beer
-  beers = [':beers: are on @gjjones: tonight!',':beers: are on @mpivnick: tonight!',':beers: are on @bobandy: tonight!',':beers: are on @esimons: tonight!',':beers: are on @wylie: tonight!',':beers: are on @slackbot: tonight!','did somebody say beer? Who wants some?','no thanks, I\'m already drunk...','http://www.leeabbamonte.com/wp-content/uploads/2015/03/Beer-1.jpg']
   robot.hear /beer/i, (res) ->
-    res.send res.random beers
-    
+    sender = res.message.user.name.toLowerCase()
+    res.send ":beers: are on @#{sender} tonight!"
+
   # thanks
   robot.respond /thank(s| you)/i, (msg) ->
     msg.send msg.random phrases
@@ -159,10 +159,12 @@ module.exports = (robot) ->
 
   # ask about the channel topic change
   robot.topic (res) ->
-    res.send "Good job changing the channel topic to #{res.message.text}?"
+    sender = res.message.user.name.toLowerCase()
+    res.send "@#{sender}, thanks for changing the channel topic to *#{res.message.text}*"
 
   # new user enter room welcome
   enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
   robot.enter (res) ->
     randomReply = res.random enterReplies
-    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
+    sender = res.message.user.name.toLowerCase()
+    res.send "#{randomReply}, Hi, @#{sender}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
