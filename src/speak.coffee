@@ -134,9 +134,15 @@ module.exports = (robot) ->
     robot.brain.set 'totalSodas', 0
     res.reply 'zzzzz'
     
-  robot.respond /users/i, (res) ->
+  # user
+  robot.respond /user/i, (res) ->
     res.reply res.message.user.name
 
+  # users
+  robot.respond /all users/i, (res) ->
+    res.reply res.message.user
+
+  # room
   robot.respond /room/i, (res) ->
     room = res.message.room
     res.send "This room is: ##{room}"
@@ -149,7 +155,6 @@ module.exports = (robot) ->
   robot.respond /choose between ([^"]+)/i, (msg) ->
       options = msg.match[1].split(' ')
       msg.reply("Definitely \"#{msg.random options}\".")
-
 
   # coin
   robot.respond /(throw|flip|toss) a coin/i, (res) ->
