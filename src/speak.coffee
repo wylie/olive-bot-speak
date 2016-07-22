@@ -115,10 +115,10 @@ module.exports = (robot) ->
     res.send "This room is: ##{room}"
 
   robot.respond /blam/i, (res) ->
-    res.send res.message.users.room
-    # while i < test.length
-    #   console.log test[i]
-    #   i++
+    tst = res.message.room.users
+    while i < tst.length
+      res.send tst[i]
+      i++
 
     # for user in res.message.room
     #   res.reply user.name + "is logged in"
