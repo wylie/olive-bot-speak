@@ -14,23 +14,22 @@
 # Author:
 #   wylie
 
-noises = ['TIMMY!!']
 phrases = [
   'LIVIN\' A LIE!!',
-  'TIMMY!!'
+  'TIMMY!!',
+  'TIMMEH!!'
 ]
 
 module.exports = (robot) ->
 
-  # RESOND
+  # RESPOND
 
   # speak
   robot.respond /speak/i, (res) ->
-    res.send res.random noises
+    res.send res.random phrases
 
   babyName = 'Oslo'
   units = 'ounces'
-  room = '#oslo'
   # add to log
   robot.respond /log ([0-9]*)/i, (res) ->
     newMilk = res.match[1]
@@ -138,7 +137,7 @@ module.exports = (robot) ->
     res.send ":beers: are on @#{sender} tonight!"
 
   # pokemon
-  robot.hear /caught a :(.*):/i, (res) ->
+  robot.hear /caught a (.*)/i, (res) ->
     pokemon = res.match[1]
     res.send "Good job catching that #{pokemon}! TIMMY!!"
 
