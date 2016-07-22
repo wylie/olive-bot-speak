@@ -133,19 +133,12 @@ module.exports = (robot) ->
     res.send res.random cats
 
   # beer
-  robot.hear /beer/i, (res) ->
+  robot.hear /(beer|s)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight!"
 
-  # thanks
-  #robot.respond /thank(s| you)/i, (res) ->
-  #  res.send res.random phrases
-  #thanks = new RegExp "thank(s| you) #{robot.name}", "i"
-  #robot.hear thanks, (res) ->
-  #  res.send res.random phrases
-
   # pokemon
-  robot.hear /caught a (.*)/i, (res) ->
+  robot.hear /caught a :(.*):/i, (res) ->
     pokemon = res.match[1]
     res.send "Good job catching that #{pokemon}! TIMMY!!"
 
