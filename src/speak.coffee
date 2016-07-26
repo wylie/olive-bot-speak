@@ -17,11 +17,6 @@
 # Author:
 #   wylie
 
-phrases = [
-  'LIVIN\' A LIE!!',
-  'TIMMY!!',
-  'TIMMEH!!'
-]
 thecoin = ['heads', 'tails']
 thedie = [1, 2, 3, 4, 5, 6]
 ball = [
@@ -129,11 +124,11 @@ module.exports = (robot) ->
       res.reply 'Sure… TIMMY!!'
 
     robot.brain.set 'totalSodas', sodaHad+1
-    
+
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalSodas', 0
     res.reply 'zzzzz'
-    
+
   # user
   robot.respond /user/i, (res) ->
     res.reply res.message.user.name
@@ -142,7 +137,7 @@ module.exports = (robot) ->
   robot.respond /room/i, (res) ->
     room = res.message.room
     res.send "This room is: ##{room}"
-    
+
   # speak
   robot.respond /speak/i, (res) ->
     res.send res.random phrases
@@ -171,19 +166,33 @@ module.exports = (robot) ->
     res.send "HI @#{sender}! TIMMY!!"
 
   # brother
-  brother = ['https://whatistheexcel.com/wooobooru/_images/75c9e97e34573f1f23518e36e40050fe/212%20-%20brother%20hulk_hogan%20macro%20mean_gene_okerlund%20microphone%20sunglasses%20wwe.jpg','http://t.qkme.me/3r68xv.jpg','http://cdn.meme.am/instances/53417899.jpg','http://cdn.meme.am/instances/61855016.jpg','http://i1168.photobucket.com/albums/r486/00GreenRanger/hulkhogan_zpsb7aa8412.jpg','http://www.quickmeme.com/img/be/be450207f2ec5e423298257ca2415fab23fbf53dfb6765070c3d333a42e0a5c5.jpg','http://www.quickmeme.com/img/5f/5f3a5911b741b287a80e45e1d3e7e5af00ebffa0067f3ef6a79aa22afa73caec.jpg']
-  robot.hear /brother/i, (res) ->
-    res.send res.random brother
+  robot.respond /brother/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/brother.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.brother.length)
+            msg.send json.brother[num]
+          else
+            msg.send "..."
 
   # cats
-  cats = ['http://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg','http://www.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2014/09/Grumpy_Cat_Endorsement-017d7-ULFU.jpg','http://www.thaqafnafsak.com/wp-content/uploads/2014/05/Animals___Cats_Red_Cat_and_tongue_044659_29.jpg','http://static.giantbomb.com/uploads/original/3/34821/2577499-cat.jpg','http://f.tqn.com/y/cats/1/W/U/L/4/72892791DomesticCatsMating-Getty-Dorling-Kindersley-.jpg','https://assets.rbl.ms/435736/640x364.jpg','http://content4.video.news.com.au/NDM_-_news.com.au/150/881/parachuting_cats_648x365_2304624662-hero.jpg','http://www.pets4homes.co.uk/images/articles/1092/large/7-of-the-most-affectionate-cat-breeds-522ed069473c9.jpg','http://i.dailymail.co.uk/i/pix/2014/09/18/1411041513567_wps_11_dmvidpics_2014_09_18_at_1.jpg','http://www.amplifyingglass.com/wp-content/uploads/2014/06/sitting-cat5.jpg']
-  robot.hear /(cat\b|cats\b)/i, (res) ->
-    res.send res.random cats
+  robot.respond /cat/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/olive/cats.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.cats.length)
+            msg.send json.cats[num]
+          else
+            msg.send "..."
 
   # beer
   robot.hear /(beer\b|beers\b)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
-    res.send ":beers: are on @#{sender} tonight!"
+    res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
   # pokemon
   robot.hear /caught a (.*)/i, (res) ->
@@ -194,9 +203,16 @@ module.exports = (robot) ->
 
   # randomly talk throughout the day
   setInterval((->
-    num = Math.floor(Math.random() * phrases.length)
-    robot.send room: 'general', phrases[num];
-  ), Math.ceil(Math.random() * 100000000))
+    robot.http("http://dukeofcheese.com/dev/hubot/timmy/phrases.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.phrases.length)
+            robot.send room: 'general', json.phrases[num];
+          else
+            msg.send "..."
+  ), 100000000)
 
   # ask about the channel topic change
   robot.topic (res) ->
@@ -204,8 +220,17 @@ module.exports = (robot) ->
     res.send "@#{sender}, thanks for changing the channel topic to *#{res.message.text}*"
 
   # new user enter room welcome
-  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
-  robot.enter (res) ->
+  robot.enter (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/enter.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.enter.length)
+            msg.send json.enter[num]
+          else
+            msg.send "..."
+
     randomReply = res.random enterReplies
     sender = res.message.user.name.toLowerCase()
     res.send "#{randomReply}, Hi, @#{sender}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
