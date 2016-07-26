@@ -205,7 +205,8 @@ module.exports = (robot) ->
   # pokemon
   robot.hear /caught a (:pokemon-.*:)/i, (res) ->
     pokemon = res.match[1]
-    res.send "Good job catching that #{pokemon}! TIMMY!!"
+    sender = res.message.user.name.toLowerCase()
+    res.send "Good job catching that #{pokemon}, @#{sender}! TIMMY!!"
 
   # NOTICE
 
