@@ -169,12 +169,12 @@ module.exports = (robot) ->
   # LISTEN
 
   # users
-  robot.hear /(hi\b)/gi, (res) ->
+  robot.hear /(\bhi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
 
   # brother
-  robot.hear /brother/i, (msg) ->
+  robot.hear /(\bbrother\b)/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/brother.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -186,7 +186,7 @@ module.exports = (robot) ->
             msg.send "..."
 
   # cats
-  robot.hear /cat/i, (msg) ->
+  robot.hear /(\bcat\b)/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/cats.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -198,12 +198,12 @@ module.exports = (robot) ->
             msg.send "..."
 
   # beer
-  robot.hear /(beer\b|beers\b)/i, (res) ->
+  robot.hear /(\bbeer\b|\bbeers\b)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
   # pokemon
-  robot.hear /caught a (.*)/i, (res) ->
+  robot.hear /caught a (:pokemon-.*:)/i, (res) ->
     pokemon = res.match[1]
     res.send "Good job catching that #{pokemon}! TIMMY!!"
 
