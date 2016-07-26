@@ -4,11 +4,12 @@
 # Commands:
 #   hubot speak - It speaks!
 #   hubot log N - Log N units of milk
-#   hubot daily log - Find out how many units of milk Oslo has had today
+#   hubot daily log - Find out how many units of milk have been logged today
 #   hubot clear log - Clear the daily log
 #   hubot start timer - Start the timer
 #   hubot show timer - Show the timers progress
 #   hubot stop timer - Stop the timer
+#   hubot biscuit - have a biscuit!
 #
 # Author:
 #   wylie
@@ -63,38 +64,16 @@ phrases = [
 ]
 
 module.exports = (robot) ->
+
+  # RESOND
+
   # speak
   robot.respond /speak/i, (res) ->
     res.send res.random noises
 
-  # randomly talk throughout the day
-  setInterval((->
-    num = Math.floor(Math.random() * phrases.length)
-    robot.send room: 'general', phrases[num];
-  ), Math.ceil(Math.random() * 100000000))
-
-  # ask about the channel topic change
-  robot.topic (res) ->
-    res.send "Are you sure you want change the channel topic to #{res.message.text}?"
-
-  # biscuit?!
-  robot.respond /would you like a biscuit/i, (res) ->
-    res.send "yes, please!"
-
-  # walks?!
-  robot.hear /walk/i, (res) ->
-    res.send "Did somebody say walk?!"
-
-  # new user enter room welcome
-  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
-  robot.enter (res) ->
-    randomReply = res.random enterReplies
-    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
-
   babyName = 'Oslo'
   units = 'ounces'
   room = '#oslo'
-
   # add to log
   robot.respond /log (.*)/i, (res) ->
     newMilk = res.match[1]
@@ -111,7 +90,7 @@ module.exports = (robot) ->
       res.reply "#{babyName} has had a total of *#{totalMilk}* #{units} of milk today! :baby_bottle:"
 
   # clear log
-  robot.hear /clear log/i, (res) ->
+  robot.respond /clear log/i, (res) ->
     robot.brain.set 'totalMilk', 0
     res.reply "The daily log has been cleared :+1:"
 
@@ -162,29 +141,58 @@ module.exports = (robot) ->
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
 
-#  hour = (new Date).getHours()
-#  minutes = (new Date).getMinutes()
-#  if hour == 0 and minutes == 0
-#    robot.brain.set 'totalMilk', 0
-#    robot.send room: 'oslo', "The daily log has been cleared :+1:";
-#  if hour == 14 and minutes == 0
-#    robot.brain.set 'totalMilk', 0
-#    robot.send room: 'oslo', "The daily log has been cleared :+1:";
+  # have a biscuit
+  robot.respond /have a biscuit/i, (res) ->
+    biscuitsHad = robot.brain.get('totalBiscuits') * 1 or 0
+    if biscuitsHad > 4
+      res.reply "I'm too full..."
+    else
+      res.reply 'Sure!'
 
-  robot.http("http://dukeofcheese.com/dev/hubot/noises.json")
-    .header('Accept', 'application/json')
-    .get() (err, res, body) ->
-      # err & response status checking code here
+    robot.brain.set 'totalBiscuits', biscuitsHad+1
+  robot.respond /sleep it off/i, (res) ->
+    robot.brain.set 'totalBiscuits', 0
+    msg.reply 'zzzzz'
 
-      if response.getHeader('Content-Type') isnt 'application/json'
-        res.send "Didn't get back JSON :("
-        return
+  # LISTEN
 
-      data = null
-      try
-        data = JSON.parse body
-      catch error
-       res.send "Ran into an error parsing JSON :("
-       return
+  # bone?!
+  robot.hear /bone/i, (res) ->
+    res.send "I love bones!"
 
-      # your code here
+  # brother
+  brother = ['https://whatistheexcel.com/wooobooru/_images/75c9e97e34573f1f23518e36e40050fe/212%20-%20brother%20hulk_hogan%20macro%20mean_gene_okerlund%20microphone%20sunglasses%20wwe.jpg','http://t.qkme.me/3r68xv.jpg','http://cdn.meme.am/instances/53417899.jpg','http://cdn.meme.am/instances/61855016.jpg','http://i1168.photobucket.com/albums/r486/00GreenRanger/hulkhogan_zpsb7aa8412.jpg','http://www.quickmeme.com/img/be/be450207f2ec5e423298257ca2415fab23fbf53dfb6765070c3d333a42e0a5c5.jpg','http://www.quickmeme.com/img/5f/5f3a5911b741b287a80e45e1d3e7e5af00ebffa0067f3ef6a79aa22afa73caec.jpg']
+  robot.hear /brother/i, (res) ->
+    res.send res.random brother
+
+  # cats
+  cats = ['http://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg','http://www.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2014/09/Grumpy_Cat_Endorsement-017d7-ULFU.jpg','http://www.thaqafnafsak.com/wp-content/uploads/2014/05/Animals___Cats_Red_Cat_and_tongue_044659_29.jpg','http://static.giantbomb.com/uploads/original/3/34821/2577499-cat.jpg','http://catswallpaperhd.us/wp-content/uploads/2014/06/male-cats-mating-gsfgeo7g.jpg','https://assets.rbl.ms/435736/640x364.jpg','http://content4.video.news.com.au/NDM_-_news.com.au/150/881/parachuting_cats_648x365_2304624662-hero.jpg','http://www.pets4homes.co.uk/images/articles/1092/large/7-of-the-most-affectionate-cat-breeds-522ed069473c9.jpg','http://i.dailymail.co.uk/i/pix/2014/09/18/1411041513567_wps_11_dmvidpics_2014_09_18_at_1.jpg','http://www.amplifyingglass.com/wp-content/uploads/2014/06/sitting-cat5.jpg']
+  robot.hear /cat/i, (res) ->
+    res.send res.random cats
+
+  # walks?!
+  robot.hear /walk/i, (res) ->
+    res.send "Did somebody say walk?!"
+
+  # beer
+  beers = [':beers: are on @gjjones: tonight!',':beers: are on @mpivnick: tonight!',':beers: are on @bobandy: tonight!',':beers: are on @esimons: tonight!',':beers: are on @wylie: tonight!',':beers: are on @slackbot: tonight!','did somebody say beer? Who wants some?','no thanks, I\'m already drunk...','http://www.leeabbamonte.com/wp-content/uploads/2015/03/Beer-1.jpg']
+  robot.hear /beer/i, (res) ->
+    res.send res.random beers
+
+  # NOTICE
+
+  # randomly talk throughout the day
+  setInterval((->
+    num = Math.floor(Math.random() * phrases.length)
+    robot.send room: 'general', phrases[num];
+  ), Math.ceil(Math.random() * 100000000))
+
+  # ask about the channel topic change
+  robot.topic (res) ->
+    res.send "Good job changing the channel topic to #{res.message.text}?"
+
+  # new user enter room welcome
+  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
+  robot.enter (res) ->
+    randomReply = res.random enterReplies
+    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
