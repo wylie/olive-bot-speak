@@ -170,3 +170,21 @@ module.exports = (robot) ->
 #  if hour == 14 and minutes == 0
 #    robot.brain.set 'totalMilk', 0
 #    robot.send room: 'oslo', "The daily log has been cleared :+1:";
+
+  robot.http("http://dukeofcheese.com/dev/hubot/noises.json")
+    .header('Accept', 'application/json')
+    .get() (err, res, body) ->
+      # err & response status checking code here
+
+      if response.getHeader('Content-Type') isnt 'application/json'
+        res.send "Didn't get back JSON :("
+        return
+
+      data = null
+      try
+        data = JSON.parse body
+      catch error
+       res.send "Ran into an error parsing JSON :("
+       return
+
+      # your code here
