@@ -234,6 +234,11 @@ module.exports = (robot) ->
     sender = res.message.user.name.toLowerCase()
     res.send "Good job catching that #{pokemon}, @#{sender}! TIMMY!!"
 
+  # kill
+  robot.hear /i will (\bend\b|\bdestroy\b|\bkill\b) you/gmi, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "Not before I kill you, @#{sender}! TIMMY!!"
+
   # NOTICE
 
   # randomly talk throughout the day
