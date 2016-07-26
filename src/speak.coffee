@@ -140,7 +140,15 @@ module.exports = (robot) ->
 
   # speak
   robot.respond /speak/i, (res) ->
-    res.send res.random phrases
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.speak.length)
+            msg.send json.speak[num]
+          else
+            msg.send "..."
 
   # choose between
   robot.respond /choose between ([^"]+)/i, (msg) ->
@@ -166,7 +174,7 @@ module.exports = (robot) ->
     res.send "HI @#{sender}! TIMMY!!"
 
   # brother
-  robot.respond /brother/i, (msg) ->
+  robot.hear /brother/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/brother.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -178,7 +186,7 @@ module.exports = (robot) ->
             msg.send "..."
 
   # cats
-  robot.respond /cat/i, (msg) ->
+  robot.hear /cat/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/cats.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
