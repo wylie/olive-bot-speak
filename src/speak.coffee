@@ -202,6 +202,19 @@ module.exports = (robot) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
+  # shut up
+  robot.hear /(\bshut up\b)/gmi, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "No, you shut up @#{sender}! TIMMY!!"
+
+  # zombie jesus
+  robot.hear /(\bsweet\b|\bzombie\b|\bjesus\b|\bsweet jesus\b|\bzombie jesus\b|\bsweet zombie jesus\b)/gmi, (res) ->
+    res.send "http://rs777.pbsrc.com/albums/yy59/gaderffii/SweetZombieJesus.jpg~c200"
+
+  # the rock
+  robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/gmi, (res) ->
+    res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
+
   # pokemon
   robot.hear /caught a (:pokemon-.*:)/i, (res) ->
     pokemon = res.match[1]
