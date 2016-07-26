@@ -187,7 +187,7 @@ module.exports = (robot) ->
 
   # cats
   robot.hear /cat/i, (msg) ->
-    msg.http("http://dukeofcheese.com/dev/hubot/olive/cats.json")
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/cats.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
         switch res.statusCode
