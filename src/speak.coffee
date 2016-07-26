@@ -197,6 +197,19 @@ module.exports = (robot) ->
           else
             msg.send "..."
 
+  # roberto
+  robot.hear /(\bwombat\b)/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/roberto.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.roberto.length)
+            msg.send json.roberto[num]
+          else
+            msg.send "..."
+
+
   # beer
   robot.hear /(\bbeer\b|\bbeers\b)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
