@@ -156,15 +156,16 @@ module.exports = (robot) ->
     songArtist = msg.match[2]
     songArtist = songArtist.replace(/\s/i,'%20')
     myUrl = "http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songTitle}";
-    msg.send myUrl
-    # msg.http("http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songCap}")
-    #   .get() (err, res, body) ->
-    #     json = JSON.parse(body)
-    #     switch res.statusCode
-    #       when 200
-    #         msg.send json
-    #       else
-    #         msg.send "..."
+    # msg.send myUrl
+    msg.http(myUrl)
+    # msg.http("http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songTitle}")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            msg.send json
+          else
+            msg.send "..."
 
   # speak
   robot.respond /speak/i, (msg) ->
