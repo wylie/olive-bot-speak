@@ -138,38 +138,15 @@ module.exports = (robot) ->
     room = res.message.room
     res.send "This room is: ##{room}"
 
-  robot.respond /lyrics (.*)/i, (msg) ->
+  robot.respond /lyrics (".*")/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
         switch res.statusCode
           when 200
             songTitle = msg.match[1]
-            tst = json.songs[songTitle]
-            msg.send tst
-          else
-            msg.send "..."
-
-  robot.respond /song (.*)/i, (msg) ->
-    msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
-      .get() (err, res, body) ->
-        json = JSON.parse(body)
-        switch res.statusCode
-          when 200
-            songTitle = msg.match[1]
-            tst = json.songs.songTitle
-            msg.send tst
-          else
-            msg.send "..."
-
-  robot.respond /play (.*)/i, (msg) ->
-    msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
-      .get() (err, res, body) ->
-        json = JSON.parse(body)
-        switch res.statusCode
-          when 200
-            songTitle = msg.match[1]
-            msg.send json.songs.songTitle
+            songLyrics = json.songs[songTitle]
+            msg.send songLyrics
           else
             msg.send "..."
 
