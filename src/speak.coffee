@@ -144,8 +144,7 @@ module.exports = (robot) ->
         json = JSON.parse(body)
         switch res.statusCode
           when 200
-            #msg.send json.songs.bananas
-            msg.send body
+            msg.send json.songs.banana
           else
             msg.send "..."
 
