@@ -138,15 +138,15 @@ module.exports = (robot) ->
     room = res.message.room
     res.send "This room is: ##{room}"
     
-  robot.respond /lyrics (".*")/gmi, (msg) ->
+  robot.respond /lyrics (.*)/gmi, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
         switch res.statusCode
           when 200
             songTitle = msg.match[1]
-            #msg.send json.songs.songTitle
-            msg.send songTitle
+            # msg.send json.songs.songTitle
+            msg.send "you typed in: #{songTitle}"
           else
             msg.send "..."
 
