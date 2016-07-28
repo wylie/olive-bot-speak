@@ -241,7 +241,7 @@ module.exports = (robot) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
   # pokemon
-  robot.hear /caught a (:pokemon-.*:)/i, (res) ->
+  robot.hear /caught .* (:pokemon-.*:)/i, (res) ->
     pokemon = res.match[1]
     sender = res.message.user.name.toLowerCase()
     res.send "Good job catching that #{pokemon}, @#{sender}! TIMMY!!"
