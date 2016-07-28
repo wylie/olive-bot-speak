@@ -138,11 +138,6 @@ module.exports = (robot) ->
     room = res.message.room
     res.send "This room is: ##{room}"
 
-json = '{"songs":{"banana":"this is a banana hammock"}}'
-json = JSON.parse(json)
-ret = json.songs.banana
-console.log ret
-    
   robot.respond /lyrics (.*)/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
       .get() (err, res, body) ->
