@@ -145,8 +145,8 @@ module.exports = (robot) ->
         switch res.statusCode
           when 200
             songTitle = msg.match[1]
-            # msg.send json.songs.songTitle
-            msg.send "you typed in: #{songTitle}"
+            msg.send json.songs.songTitle
+            # msg.send "you typed in: #{songTitle}"
           else
             msg.send "..."
 
