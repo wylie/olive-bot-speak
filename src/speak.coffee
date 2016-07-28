@@ -138,7 +138,7 @@ module.exports = (robot) ->
     room = res.message.room
     res.send "This room is: ##{room}"
 
-  robot.respond /lyrics (.*)/i, (msg) ->
+  robot.respond /lyrics "(.*)"/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -148,7 +148,7 @@ module.exports = (robot) ->
             songLyrics = json.songs[songTitle]
             msg.send songLyrics
           else
-            msg.send "..."
+            msg.send ""
 
   # speak
   robot.respond /speak/i, (msg) ->
