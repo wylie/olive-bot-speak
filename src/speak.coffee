@@ -151,8 +151,8 @@ module.exports = (robot) ->
             msg.send ""
 
   robot.respond /song '(.*)'/i, (msg) ->
-    songTitle = msg.match[1]
-    msg.http("http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songTitle}")
+    songCap = msg.match[1]
+    msg.http("http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songCap}")
       .get() (err, res, body) ->
         json = JSON.parse(body)
         switch res.statusCode
