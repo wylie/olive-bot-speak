@@ -153,8 +153,8 @@ module.exports = (robot) ->
   robot.respond /song (.*) by (.*)/i, (msg) ->
     songCap = msg.match[1]
     songArtist = msg.match[2]
-    msg.send "#{songCap} by #{songArtist}"
-    #url = "http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songCap}";
+    url = "http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songCap}";
+    msg.send "#{songCap} by #{songArtist} at #{url}"
     #msg.http(url)
     #  .get() (err, res, body) ->
     #    json = JSON.parse(body)
