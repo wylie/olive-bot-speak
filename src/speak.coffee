@@ -121,14 +121,14 @@ module.exports = (robot) ->
     #res.reply stuffHad
     stuffTotal = robot.brain.get('totalStuff') * 1 or 0
     if stuffTotal > 4
-      res.reply 'I\'m too full for any more sodas...'
+      res.reply "I'm too full for any more sodas..."
     else
-      res.reply 'Sure, I love #{stuffHad}! TIMMY!!'
+      res.reply "Sure, I love #{stuffHad}! TIMMY!!"
     robot.brain.set 'totalStuff', stuffTotal+1
 
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalStuff', 0
-    res.reply 'zzzzz'
+    res.reply "zzzzz"
 
   # user
   robot.respond /user/i, (res) ->
