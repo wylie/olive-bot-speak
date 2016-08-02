@@ -9,7 +9,7 @@
 #   hubot log N - Log N units of milk
 #   hubot show timer - Show the timers progress
 #   hubot roll the die - Roll the dice
-#   hubot have a soda - drink a soda
+#   hubot have a [anything] - eat or drink anything
 #   hubot speak - It speaks!
 #   hubot start timer - Start the timer
 #   hubot stop timer - Stop the timer
@@ -116,7 +116,7 @@ module.exports = (robot) ->
     robot.brain.set 'oldTime', 0
 
   # have a soda
-  robot.respond /(have a (((:.*:))|(.\w+\b)))/i, (res) ->
+  robot.respond /have a (((:.*:))|(.\w+\b))/i, (res) ->
     stuffHad = res.match[1]
     #res.reply stuffHad
     stuffTotal = robot.brain.get('totalStuff') * 1 or 0
