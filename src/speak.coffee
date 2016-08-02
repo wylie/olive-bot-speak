@@ -116,7 +116,7 @@ module.exports = (robot) ->
     robot.brain.set 'oldTime', 0
 
   # have a soda
-  robot.respond /(have a (.*) \b)/gmi, (res) ->
+  robot.respond /have a (.*) \b/gmi, (res) ->
     stuff = res.match[1]
     stuffHad = robot.brain.get('totalStuff') * 1 or 0
     if stuffHad > 4
