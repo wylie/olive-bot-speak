@@ -117,14 +117,14 @@ module.exports = (robot) ->
 
   # have a soda
   robot.respond /(have a (.*) \b)/i, (res) ->
-    stuff = res.match[1]
-    stuffHad = robot.brain.get('totalStuff') * 1 or 0
-    if stuffHad > 4
+    stuffHad = res.match[1]
+    totalStuff = robot.brain.get('totalStuff') * 1 or 0
+    if stuffTotal > 4
       res.reply 'I\'m too full...'
     else
-      res.reply 'Sure… :#{stuff}: TIMMY!!'
+      res.reply 'Sure… #{stuffHad} TIMMY!!'
 
-    robot.brain.set 'totalStuff', stuffHad+1
+    robot.brain.set 'totalStuff', totalStuff+1
 
   robot.respond /sleep it off/i, (res) ->
     robot.brain.set 'totalStuff', 0
