@@ -353,7 +353,7 @@ module.exports = (robot) ->
           when 200
             num = Math.floor(Math.random() * json.speak.length)
             sender = res.message.user.name.toLowerCase()
-            res.send "Morning, @#{sender}! " + json.speak[num]
+            res.send json.speak[num]
           else
             res.send "..."
     
