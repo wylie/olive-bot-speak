@@ -344,3 +344,16 @@ module.exports = (robot) ->
   robot.hear morning, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "Morning, @#{sender}! TIMMY!!"
+    
+  robot.respond /(\bgood\b|\bday\b)/gmi, (res) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.speak.length)
+            sender = res.message.user.name.toLowerCase()
+            res.send "Morning, @#{sender}! " + json.speak[num]
+          else
+            msg.send "..."
+    
