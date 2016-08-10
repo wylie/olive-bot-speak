@@ -315,8 +315,24 @@ module.exports = (robot) ->
     googleMe res, res.match[3], (url) ->
       res.send url
 
-googleMe = (res, query, cb) ->
-  res.http('http://www.google.com/search')
-    .query(q: query)
-    .get() (err, res, body) ->
-      cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
+  setInterval (->
+    time = new Date
+    day = time.getDay()
+    hour = time.getHours()
+    minute = time.getMinutes()
+    second = time.getSeconds()
+    if hour < 12
+      suff = 'am'
+    if hour > 12
+      hour = hour - 4
+      suff = 'pm'
+    if hour == 0
+      hour = 12
+    # Taco Tuesday
+    if day == 2 and hour == 8 and minute == 0
+      robot.send room: 'general', "Hooray, it's Taco Tuesday! :taco: TIMMY!!"
+    # Burger Friday
+    if day == 5 and hour == 8 and minute == 0
+      robot.send room: 'general', "Hooray, it's Burger Friday! :hamburger: TIMMY!!"
+    return
+  ), 60000
