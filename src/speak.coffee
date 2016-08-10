@@ -337,15 +337,7 @@ module.exports = (robot) ->
     return
   ), 60000
 
-  robot.respond /good morning/gmi, (res) ->
-    sender = res.message.user.name.toLowerCase()
-    res.send "Morning, @#{sender}! TIMMY!!"
-  morning = new RegExp "good morning #{robot.name}", "i"
-  robot.hear morning, (res) ->
-    sender = res.message.user.name.toLowerCase()
-    res.send "Morning, @#{sender}! TIMMY!!"
-    
-  robot.respond /(\bgood\b|\bday\b)/gmi, (msg) ->
+  robot.respond /good morning/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -353,6 +345,20 @@ module.exports = (robot) ->
           when 200
             num = Math.floor(Math.random() * json.speak.length)
             sender = msg.message.user.name.toLowerCase()
-            msg.send "Good morning! " + json.speak[num]
+            msg.send "Good morning, @#{sender}! " + json.speak[num]
           else
             msg.send "..."
+
+  morning = new RegExp "good morning #{robot.name}", "i"
+  robot.hear morning, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.speak.length)
+            sender = msg.message.user.name.toLowerCase()
+            msg.send "Good morning, @#{sender}! " + json.speak[num]
+          else
+            msg.send "..."
+    
