@@ -337,8 +337,10 @@ module.exports = (robot) ->
     return
   ), 60000
 
-  robot.respond /good morning/gmi, (msg) ->
-    msg.send "Morning, @#{sender}! TIMMY!!"
+  robot.respond /good morning/gmi, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "Morning, @#{sender}! TIMMY!!"
   morning = new RegExp "good morning #{robot.name}", "i"
-  robot.hear morning, (msg) ->
-    msg.send "Morning, @#{sender}! TIMMY!!"
+  robot.hear morning, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "Morning, @#{sender}! TIMMY!!"
