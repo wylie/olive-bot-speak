@@ -336,3 +336,9 @@ module.exports = (robot) ->
       robot.send room: 'general', "Hooray, it's Burger Friday! :hamburger: TIMMY!!"
     return
   ), 60000
+
+  robot.respond /good morning/gmi, (msg) ->
+    msg.send "Morning, @#{sender}! TIMMY!!"
+  morning = new RegExp "good morning #{robot.name}", "i"
+  robot.hear morning, (msg) ->
+    msg.send "Morning, @#{sender}! TIMMY!!"
