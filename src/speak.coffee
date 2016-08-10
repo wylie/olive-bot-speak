@@ -349,11 +349,10 @@ module.exports = (robot) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
-        switch msg.statusCode
+        switch res.statusCode
           when 200
             num = Math.floor(Math.random() * json.speak.length)
             sender = msg.message.user.name.toLowerCase()
             msg.send json.speak[num]
           else
             msg.send "..."
-    
