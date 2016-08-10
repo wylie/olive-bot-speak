@@ -349,7 +349,7 @@ module.exports = (robot) ->
           else
             msg.send "..."
 
-  morning = new RegExp "good morning #{robot.name}", "i"
+  morning = new RegExp "(good morning #{robot.name}good morning @#{robot.name}|)", "i"
   robot.hear morning, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
       .get() (err, res, body) ->
