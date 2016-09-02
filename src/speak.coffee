@@ -244,7 +244,7 @@ module.exports = (robot) ->
 
 
   # get/buy(ing) beer(s)
-  robot.hear /(((get)|(buy|buying))\s(\bbeer\b|\bbeers\b))/i, (res) ->
+  robot.hear /(((\bget\b)|(\bbuy\b|\bbuying\b))\s(\bbeer\b|\bbeers\b))/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
@@ -276,13 +276,93 @@ module.exports = (robot) ->
   robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/gmi, (res) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
-  # robsface
-  robot.hear /\brobsface\b/i, (msg) ->
+  # rob|robsface|robsfault
+  robot.hear /(:|#)(\brob\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "robsface"
-        channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
-        timestamp: msg.message.id # this id is no longer undefined
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # kanye
+  robot.hear /\bkanye\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "kanye"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # kanye
+  robot.hear /\bawesome\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "100"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # burger|hamburger
+  robot.hear /\b(burger|hamburger)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "hamburger"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # props
+  robot.hear /\bprops\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "star"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # lee
+  robot.hear /\blee\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "lee"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
       }
 
     if (queryData.timestamp?)
