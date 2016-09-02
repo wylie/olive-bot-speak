@@ -258,6 +258,10 @@ module.exports = (robot) ->
   robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/gmi, (res) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
+  # the rock
+  robot.hear /(\bemoji\b)/i, (res) ->
+    res.send "+:+1:"
+
   # pokemon
   robot.hear /(caught).* (:pokemon-.*:)/i, (res) ->
     pokemon = res.match[1]
