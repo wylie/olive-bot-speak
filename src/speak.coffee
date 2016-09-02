@@ -277,7 +277,7 @@ module.exports = (robot) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
   # rob|robsface|robsfault
-  robot.hear /(:|#)(\brob\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
+  robot.hear /(:|#|@|)(\brob\b|\broberto\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "robsface"
@@ -308,7 +308,7 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # kanye
+  # awesome
   robot.hear /\bawesome\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -357,10 +357,26 @@ module.exports = (robot) ->
           return
 
   # lee
-  robot.hear /\blee\b/i, (msg) ->
+  robot.hear /(:|#|@|)(\blee\b)(:|)/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "lee"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # good morning
+  robot.hear /\b(good\smorning|morning)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "sunrise"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
