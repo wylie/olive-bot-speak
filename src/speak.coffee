@@ -198,7 +198,7 @@ module.exports = (robot) ->
 
   # LISTEN
 
-  # users
+  # hi
   robot.hear /(\bhi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
@@ -215,17 +215,20 @@ module.exports = (robot) ->
           else
             msg.send "..."
 
-  # cats
-  robot.hear /(\bcat\b)/i, (msg) ->
-    msg.http("http://dukeofcheese.com/dev/hubot/timmy/cats.json")
-      .get() (err, res, body) ->
-        json = JSON.parse(body)
-        switch res.statusCode
-          when 200
-            num = Math.floor(Math.random() * json.cats.length)
-            msg.send json.cats[num]
-          else
-            msg.send "..."
+  # cat(s)
+  robot.hear /(\bcat\b|\bcats\b)/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "cat"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
 
   # roberto
   robot.hear /(\bwombat\b)/i, (msg) ->
@@ -240,10 +243,25 @@ module.exports = (robot) ->
             msg.send "..."
 
 
-  # beer
-  robot.hear /(\bbeer\b|\bbeers\b)/i, (res) ->
+  # get/buy(ing) beer(s)
+  robot.hear /(((get)|(buy|buying))\s(\bbeer\b|\bbeers\b))/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
+
+  # beer
+  robot.hear /\bbeer\b/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "beer"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
 
   # shut up
   robot.hear /(\bshut up\b)/gmi, (res) ->
@@ -273,9 +291,6 @@ module.exports = (robot) ->
         .post() (err, res, body) ->
           #TODO: error handling
           return
-
-  # robot.hear /(\bemoji\b)/i, (res) ->
-  #   res.send "+:+1:"
 
   # pokemon
   robot.hear /(caught).* (:pokemon-.*:)/i, (res) ->
