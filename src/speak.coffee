@@ -277,7 +277,7 @@ module.exports = (robot) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
   # rob|robsface|robsfault
-  robot.hear /(:|#|@|)(\brob\b|\broberto\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
+  robot.hear /(:|@|#|)(\brob\b|\brobs\b|\broberto\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "robsface"
