@@ -276,7 +276,10 @@ module.exports = (robot) ->
   robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/gmi, (res) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
-  # rob|robsface|robsfault
+  ## ---------------
+  ## EMOJI RESPONSES
+  ## ---------------
+  # robsface
   robot.hear /(:|@|#|)(\brob\b|\brobs\b|\broberto\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -308,7 +311,7 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # awesome
+  # 100
   robot.hear /\bawesome\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -324,7 +327,7 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # burger|hamburger
+  # hamburger
   robot.hear /\b(burger|hamburger)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -340,7 +343,7 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # props
+  # star
   robot.hear /\bprops\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -372,7 +375,7 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # good morning
+  # sunrise
   robot.hear /\b(good\smorning|morning)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
@@ -393,6 +396,118 @@ module.exports = (robot) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "sushi"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # coffee
+  robot.hear /\bcoffee\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "coffee"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # dickbutt
+  robot.hear /\b(dick|butt|dickbutt|but|richard)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "dickbutt"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # esimons
+  robot.hear /\b(evan|simons|esimons)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "esimons"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # matt-pivnick
+  robot.hear /\b(matt|pivnick)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "matt-pivnick"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # greg-jones
+  robot.hear /\b(greg|jones)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "greg-jones"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # wylie
+  robot.hear /\bwylie\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "wylie"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # burrito
+  robot.hear /\bburrito\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "burrito"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
