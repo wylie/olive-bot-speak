@@ -424,7 +424,7 @@ module.exports = (robot) ->
           return
 
   # dickbutt
-  robot.hear /\b(dick|butt|dickbutt|but|richard)\b/i, (msg) ->
+  robot.hear /\b(dick|butt|dickbutt|richard)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "dickbutt"
