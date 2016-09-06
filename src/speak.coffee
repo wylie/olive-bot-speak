@@ -439,6 +439,70 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
+  # computer
+  robot.hear /\b(laptop|computer|work)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "computer"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # moneybag
+  robot.hear /\b(paid|money|cash|expensive)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "moneybag"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # the_horns
+  robot.hear /\brock( on| and roll| & roll|in|)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "the_horns"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # medal
+  robot.hear /\b(good job|well done)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "medal"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
   # amazon
   robot.hear /\bamazon\b/i, (msg) ->
     queryData =  {
