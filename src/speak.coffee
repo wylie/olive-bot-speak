@@ -439,6 +439,22 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
+  # amazon
+  robot.hear /\bamazon\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "amazon"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
   # esimons
   robot.hear /\b(evan|simons|esimons)\b/i, (msg) ->
     queryData =  {
