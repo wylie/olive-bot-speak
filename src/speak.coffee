@@ -675,7 +675,7 @@ module.exports = (robot) ->
     res.send "Not before I kill you, @#{sender}! TIMMY!!"
 
   # not now timmy
-  notNow = new RegExp "(not now #{robot.name}|#{robot.name}, not now)", "i"
+  notNow = new RegExp "(not now #{robot.name}|#{robot.name}(, not now|\snot now))", "i"
   robot.hear notNow, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "If not now, when @#{sender}? TIMMY!!"
