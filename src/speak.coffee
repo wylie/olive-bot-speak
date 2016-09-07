@@ -760,7 +760,7 @@ module.exports = (robot) ->
           return
 
   # drupal
-  robot.hear /\bdrupal\b/i, (msg) ->
+  robot.hear /\b(amy|ooh ooh|um|drupal)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "drupal"
