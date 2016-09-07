@@ -807,11 +807,59 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # coolio
-  robot.hear /\bspid(erman|ey|er)\b/i, (msg) ->
+  # starwars
+  robot.hear /\b(star wars|starwars|rogue one)|(empire|rebel)|(darth vader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "coolio"
+        name: "starwars"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # empire
+  robot.hear /\b(star wars|starwars|rogue one)|(empire)|(darth vader|darth|vader|anakin)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "empire"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # rebel
+  robot.hear /\b(star wars|starwars|rogue one)|(rebel)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "rebel"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # darth_vader
+  robot.hear /\b(star wars|starwars|rogue one)|(empire)|(father|darth vader|darth|vader|anakin)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "darth_vader"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
