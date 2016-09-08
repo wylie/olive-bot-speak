@@ -280,7 +280,7 @@ module.exports = (robot) ->
   ## EMOJI RESPONSES
   ## ---------------
   # robsface
-  robot.hear /\brob|(s|erto|sface|sfault)\b/i, (msg) ->
+  robot.hear /\b(rob|robs|roberto|robsface|robsfault)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "robsface"
@@ -604,6 +604,22 @@ module.exports = (robot) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "meat_on_bone"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # my_little_pony
+  robot.hear /\b(rob|robs|roberto|robsface|robsfault)\b|\b(pony|my\slittle\spony)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "my_little_pony"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
