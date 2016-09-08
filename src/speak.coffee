@@ -280,7 +280,7 @@ module.exports = (robot) ->
   ## EMOJI RESPONSES
   ## ---------------
   # robsface
-  robot.hear /(:|@|#|)(\brob\b|\brobs\b|\broberto\b|\brobsface\b|\brobsfault\b)(:|)/i, (msg) ->
+  robot.hear /\brob|(s|erto|sface|sfault)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "robsface"
@@ -312,7 +312,7 @@ module.exports = (robot) ->
           return
 
   # 100
-  robot.hear /\bawesome\b/i, (msg) ->
+  robot.hear /\b(awesome|success)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "100"
@@ -328,7 +328,7 @@ module.exports = (robot) ->
           return
 
   # hamburger
-  robot.hear /\b(burger|hamburger)\b/i, (msg) ->
+  robot.hear /\b(ham)|burger\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "hamburger"
@@ -360,7 +360,7 @@ module.exports = (robot) ->
           return
 
   # lee
-  robot.hear /(:|#|@|)(\blee\b)(:|)/i, (msg) ->
+  robot.hear /\blee\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "lee"
@@ -440,7 +440,7 @@ module.exports = (robot) ->
           return
 
   # computer
-  robot.hear /\b(laptop|computer|work)\b/i, (msg) ->
+  robot.hear /\b(laptop|computer|work|working)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "computer"
@@ -456,7 +456,7 @@ module.exports = (robot) ->
           return
 
   # moneybag
-  robot.hear /\b(paid|money|cash|expensive)\b/i, (msg) ->
+  robot.hear /\b(paid|money|cash|expensive|expenses|riches)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "moneybag"
@@ -472,7 +472,7 @@ module.exports = (robot) ->
           return
 
   # the_horns
-  robot.hear /\brock( on| and roll| & roll|in|)\b/i, (msg) ->
+  robot.hear /\brock(\son|er|\sand\sroll|\s&\sroll|in|)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "the_horns"
@@ -488,7 +488,7 @@ module.exports = (robot) ->
           return
 
   # medal
-  robot.hear /\b(good job|well done)\b/i, (msg) ->
+  robot.hear /\b(good\sjob|well\sdone)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "medal"
@@ -648,7 +648,7 @@ module.exports = (robot) ->
           return
 
   # hocho
-  robot.hear /\b(stab|knife|cut you)\b/i, (msg) ->
+  robot.hear /\b(stab|knife|cut\syou|end\syou|destroy\syou)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "hocho"
@@ -680,23 +680,7 @@ module.exports = (robot) ->
           return
 
   # appleinc
-  robot.hear /\b(os x|apple)\b/i, (msg) ->
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        name: "appleinc"
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
-      }
-
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          #TODO: error handling
-          return
-
-  # appleinc
-  robot.hear /\b(os x|apple)\b/i, (msg) ->
+  robot.hear /\b(os\sx|apple|mac|macintosh|iphone|apple\swatch)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "appleinc"
@@ -792,7 +776,7 @@ module.exports = (robot) ->
           return
 
   # drupal
-  robot.hear /\b(amy|ooh ooh|um|drupal)\b/i, (msg) ->
+  robot.hear /\b(amy|ooh\sooh|um|drupal)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "drupal"
@@ -840,7 +824,7 @@ module.exports = (robot) ->
           return
 
   # starwars
-  robot.hear /\b(star wars|starwars|rogue one)|(empire|rebel)|(darth vader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire|rebel)|(darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "starwars"
@@ -856,7 +840,7 @@ module.exports = (robot) ->
           return
 
   # empire
-  robot.hear /\b(star wars|starwars|rogue one)|(empire)|(darth vader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire)|(darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "empire"
@@ -872,7 +856,7 @@ module.exports = (robot) ->
           return
 
   # rebel
-  robot.hear /\b(star wars|starwars|rogue one)|(rebel)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)|(rebel)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "rebel"
@@ -888,7 +872,7 @@ module.exports = (robot) ->
           return
 
   # darth_vader
-  robot.hear /\b(star wars|starwars|rogue one)|(empire)|(father|darth vader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire)|(father|darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "darth_vader"
