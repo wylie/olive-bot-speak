@@ -680,7 +680,7 @@ module.exports = (robot) ->
           return
 
   # middle_finger
-  robot.hear /\b(fuck|fucker|fuckers)\b|\b(ass|asshole|assholes)\b|\b(jerk|jerks)\b|\bamy\b/i, (msg) ->
+  robot.hear /\b(fuck|fucker|fuckers)\b|\b(ass|asshole|assholes)\b|\b(jerk|jerks)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "middle_finger"
@@ -796,6 +796,22 @@ module.exports = (robot) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "drupal"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # amy
+  robot.hear /\b(amy|ooh\sooh|um|drupal)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "amy"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
