@@ -680,7 +680,7 @@ module.exports = (robot) ->
           return
 
   # middle_finger
-  robot.hear /\b\bfuck|(er|(s))|ass|(hole|(s))|jerk|(s)\b\b/i, (msg) ->
+  robot.hear /\b(fuck|fucker|fuckers)\b|\b(ass|asshole|assholes)\b|\b(jerk|jerks)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "middle_finger"
@@ -840,7 +840,7 @@ module.exports = (robot) ->
           return
 
   # starwars
-  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire|rebel)|(darth\svader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire|rebel)\b|\b(darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "starwars"
@@ -856,7 +856,7 @@ module.exports = (robot) ->
           return
 
   # empire
-  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire)|(darth\svader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "empire"
@@ -872,7 +872,7 @@ module.exports = (robot) ->
           return
 
   # rebel
-  robot.hear /\b(star\swars|starwars|rogue\sone)|(rebel)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(rebel)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "rebel"
@@ -888,7 +888,7 @@ module.exports = (robot) ->
           return
 
   # darth_vader
-  robot.hear /\b(star\swars|starwars|rogue\sone)|(empire)|(father|darth\svader|darth|vader|anakin)\b/i, (msg) ->
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(father|darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "darth_vader"
