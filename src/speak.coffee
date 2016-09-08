@@ -536,7 +536,7 @@ module.exports = (robot) ->
           return
 
   # matt-pivnick
-  robot.hear /\b(matt|pivnick)\b/i, (msg) ->
+  robot.hear /\b(matt|matt pivnick|mpivnick)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "matt-pivnick"
@@ -552,7 +552,7 @@ module.exports = (robot) ->
           return
 
   # greg-jones
-  robot.hear /\b(greg|jones)\b/i, (msg) ->
+  robot.hear /\b(greg|greg jones|gjjones)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "greg-jones"
@@ -568,7 +568,7 @@ module.exports = (robot) ->
           return
 
   # wylie
-  robot.hear /\bwylie\b/i, (msg) ->
+  robot.hear /\b(wylie|wylie fisher)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "wylie"
@@ -632,10 +632,42 @@ module.exports = (robot) ->
           return
 
   # starbucks
-  robot.hear /\b(coffee|starbucks)\b/i, (msg) ->
+  robot.hear /\bstarbucks\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "starbucks"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # hocho
+  robot.hear /\b(stab|knife|cut you)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "hocho"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # middle_finger
+  robot.hear /\b\bfuck|(er|(s))|ass|(hole|(s))|jerk|(s)\b\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "middle_finger"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
