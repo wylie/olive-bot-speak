@@ -935,6 +935,22 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
+  # flamingo
+  robot.hear /\bflamingo\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "flamingo"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
   # slack
   robot.hear /\bslack\b/i, (msg) ->
     queryData =  {
