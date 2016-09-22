@@ -1071,7 +1071,7 @@ module.exports = (robot) ->
     if hour < 12
       suff = 'am'
     if hour > 12
-      hour = hour - 4
+      # hour = hour - 4
       suff = 'pm'
     if hour == 0
       hour = 12
