@@ -823,11 +823,11 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # whoa
-  robot.hear /\b(whoa|whoah|woah)\b/i, (msg) ->
+  # keanu
+  robot.hear /\b(whoa|whoah|woah|keanu)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "whoa"
+        name: "keanu"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
