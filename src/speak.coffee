@@ -279,22 +279,6 @@ module.exports = (robot) ->
   ## ---------------
   ## EMOJI RESPONSES
   ## ---------------
-  # robsface
-  robot.hear /\b(rob|robs|roberto|robsface|robsfault)\b/i, (msg) ->
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        name: "robsface"
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
-      }
-
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          #TODO: error handling
-          return
-
   # kanye
   robot.hear /\bkanye\b/i, (msg) ->
     queryData =  {
@@ -520,7 +504,7 @@ module.exports = (robot) ->
           return
 
   # esimons
-  robot.hear /\b(evan|simons|esimons)\b/i, (msg) ->
+  robot.hear /\be(van\ssimons|van|simons)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "esimons"
@@ -535,8 +519,40 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
+  robot.hear /\bro(b|bs|berto|bsface|bsfault)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "robsface"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+
   # matt-pivnick
-  robot.hear /\b(matt|matt pivnick|mpivnick)\b/i, (msg) ->
+  robot.hear /\bm(att\spivnick|att|pivnick)\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "matt-pivnick"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
+  # matt-pivnick
+  robot.hear /\bm(att\spivnick|att|pivnick)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "matt-pivnick"
@@ -552,7 +568,7 @@ module.exports = (robot) ->
           return
 
   # greg-jones
-  robot.hear /\b(greg|greg jones|gjjones)\b/i, (msg) ->
+  robot.hear /\bg(reg|jjones)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "greg-jones"
@@ -568,7 +584,7 @@ module.exports = (robot) ->
           return
 
   # wylie
-  robot.hear /\b(wylie|wylie fisher)\b/i, (msg) ->
+  robot.hear /\bwy(lie|liefisher)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "wylie"
