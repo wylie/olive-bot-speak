@@ -875,7 +875,7 @@ module.exports = (robot) ->
   robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "empire"
+        name: "starwars_empire"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
@@ -891,7 +891,7 @@ module.exports = (robot) ->
   robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(rebel)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "rebel"
+        name: "starwars_rebel"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
@@ -907,7 +907,7 @@ module.exports = (robot) ->
   robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(father|darth\svader|darth|vader|anakin)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "darth_vader"
+        name: "starwars_darth_vader"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
