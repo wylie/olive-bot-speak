@@ -936,7 +936,7 @@ module.exports = (robot) ->
           return
 
   # skull
-  robot.hear /\b(skull|cheese)\b/i, (msg) ->
+  robot.hear /\b(skull|cheese|die)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "skull"
