@@ -1042,15 +1042,11 @@ module.exports = (robot) ->
     while x < smpl.length
       queryData =  {
           token: process.env.HUBOT_SLACK_TOKEN
-          # name: ["pepsi", "bomb"] # returns last one
-          # name: "pepsi", "bomb" # returns nothing
-          # name: "pepsi" # returns last one
-          # name: "bomb" # ^
-          name: smpl[x] # returns
-          # for own key, user of robot.brain.users
+          name: smpl[x]
           channel: msg.message.rawMessage.channel
           timestamp: msg.message.id
         }
+      x++
 
       if (queryData.timestamp?)
         msg.http("https://slack.com/api/reactions.add")
@@ -1058,7 +1054,6 @@ module.exports = (robot) ->
           .post() (err, res, body) ->
             #TODO: error handling
             return
-      x++
 
   # add reaction
   # robot.hear /\bclocks?\b/i, (msg) ->
