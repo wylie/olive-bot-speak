@@ -1033,7 +1033,7 @@ module.exports = (robot) ->
 
   # double test
   robot.hear /\bboyo\b/i, (msg) ->
-    smpl = "bomb"
+    smpl = "star"
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         # name: ["pepsi", "bomb"] # returns last one
