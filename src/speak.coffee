@@ -1046,7 +1046,7 @@ module.exports = (robot) ->
           # name: "pepsi", "bomb" # returns nothing
           # name: "pepsi" # returns last one
           # name: "bomb" # ^
-          name: smpl # returns
+          name: smpl[x] # returns
           # for own key, user of robot.brain.users
           channel: msg.message.rawMessage.channel
           timestamp: msg.message.id
