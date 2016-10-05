@@ -1033,10 +1033,15 @@ module.exports = (robot) ->
 
   # double test
   robot.hear /\bboyo\b/i, (msg) ->
+    smpl = "bomb"
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: "pepsi"
-        name: "bomb"
+        # name: ["pepsi", "bomb"] # returns last one
+        # name: "pepsi", "bomb" # returns nothing
+        # name: "pepsi" # returns last one
+        # name: "bomb" # ^
+        name: smpl # returns
+        # for own key, user of robot.brain.users
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
