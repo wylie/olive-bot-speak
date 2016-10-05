@@ -1031,6 +1031,22 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
+  # double test
+  robot.hear /\bboyo\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: ["pepsi", "bomb"]
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+
   # add reaction
   # robot.hear /\bclocks?\b/i, (msg) ->
   #   queryData =  {
