@@ -1033,25 +1033,32 @@ module.exports = (robot) ->
 
   # double test
   robot.hear /\bboyo\b/i, (msg) ->
-    smpl = "star"
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        # name: ["pepsi", "bomb"] # returns last one
-        # name: "pepsi", "bomb" # returns nothing
-        # name: "pepsi" # returns last one
-        # name: "bomb" # ^
-        name: smpl # returns
-        # for own key, user of robot.brain.users
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
-      }
+    smpl = [
+      bomb
+      star
+      pepsi
+    ]
+    x = 0
+    while x < smpl.length
+      queryData =  {
+          token: process.env.HUBOT_SLACK_TOKEN
+          # name: ["pepsi", "bomb"] # returns last one
+          # name: "pepsi", "bomb" # returns nothing
+          # name: "pepsi" # returns last one
+          # name: "bomb" # ^
+          name: smpl # returns
+          # for own key, user of robot.brain.users
+          channel: msg.message.rawMessage.channel
+          timestamp: msg.message.id
+        }
 
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          #TODO: error handling
-          return
+      if (queryData.timestamp?)
+        msg.http("https://slack.com/api/reactions.add")
+          .query(queryData)
+          .post() (err, res, body) ->
+            #TODO: error handling
+            return
+      x++
 
   # add reaction
   # robot.hear /\bclocks?\b/i, (msg) ->
