@@ -328,7 +328,7 @@ module.exports = (robot) ->
           return
 
   # star
-  robot.hear /\bprops\b/i, (msg) ->
+  robot.hear /\b(props|star)\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "star"
@@ -551,22 +551,6 @@ module.exports = (robot) ->
           #TODO: error handling
           return
 
-  # matt-pivnick
-  robot.hear /\bm(att\spivnick|att|pivnick)\b/i, (msg) ->
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        name: "matt-pivnick"
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
-      }
-
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          #TODO: error handling
-          return
-
   # greg-jones
   robot.hear /\bg(reg|jjones)\b/i, (msg) ->
     queryData =  {
@@ -748,22 +732,6 @@ module.exports = (robot) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "git"
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
-      }
-
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          #TODO: error handling
-          return
-
-  # github
-  robot.hear /\bgithub\b/i, (msg) ->
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        name: "github"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
