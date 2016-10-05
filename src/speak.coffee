@@ -1032,7 +1032,7 @@ module.exports = (robot) ->
           return
 
   # double test
-  robot.hear /\b(its\snot\srobs\sfault)\b/i, (msg) ->
+  robot.hear /\b(i(ts|t's)\snot\srobs\sfault)\b/i, (msg) ->
     smpl = [
       "nyancat_big"
       "bomb"
