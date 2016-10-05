@@ -1035,7 +1035,7 @@ module.exports = (robot) ->
   robot.hear /\bboyo\b/i, (msg) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        name: ["pepsi", "bomb"]
+        name: "pepsi bomb"
         channel: msg.message.rawMessage.channel
         timestamp: msg.message.id
       }
