@@ -1034,9 +1034,9 @@ module.exports = (robot) ->
   # double test
   robot.hear /\bboyo\b/i, (msg) ->
     smpl = [
-      bomb
-      star
-      pepsi
+      "bomb"
+      "star"
+      "pepsi"
     ]
     x = 0
     while x < smpl.length
