@@ -200,7 +200,7 @@ module.exports = (robot) ->
     res.send "HI @#{sender}! TIMMY!!"
 
   # kick your butt
-  robot.respond /(what\scan\syou\sdo\stimmy)/i, (res) ->
+  robot.hear /(what\scan\syou\sdo\stimmy)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "I can kick your ass, @#{sender}! :knife: TIMMY!!"
 
@@ -1184,4 +1184,4 @@ module.exports = (robot) ->
   #       .query(queryData)
   #       .post() (err, res, body) ->
   #         #TODO: error handling
-  #         return
+  #         return  
