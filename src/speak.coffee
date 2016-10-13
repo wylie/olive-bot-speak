@@ -313,7 +313,7 @@ module.exports = (robot) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
   # youtube
-  robot.respond /(video)( me)? (.*)/i, (res) ->
+  robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
     youtubeMe res, res.match[3], (url) ->
       res.send url
   
