@@ -235,16 +235,16 @@ module.exports = (robot) ->
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
   # shut up
-  robot.hear /(\bshut up\b)/gmi, (res) ->
+  robot.hear /(\bshut up\b)/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "No, you shut up @#{sender}! TIMMY!!"
 
   # zombie jesus
-  robot.hear /(\bsweet\b|\bzombie\b|\bjesus\b|\bsweet jesus\b|\bzombie jesus\b|\bsweet zombie jesus\b)/gmi, (res) ->
+  robot.hear /(\bsweet\b|\bzombie\b|\bjesus\b|\bsweet jesus\b|\bzombie jesus\b|\bsweet zombie jesus\b)/i, (res) ->
     res.send "http://rs777.pbsrc.com/albums/yy59/gaderffii/SweetZombieJesus.jpg~c200"
 
   # the rock
-  robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/gmi, (res) ->
+  robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/i, (res) ->
     res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
 
   # pokemon
@@ -254,7 +254,7 @@ module.exports = (robot) ->
     res.send "Good job catching that #{pokemon}, @#{sender}! TIMMY!!"
 
   # kill
-  robot.hear /i will (\bend\b|\bdestroy\b|\bkill\b) you/gmi, (res) ->
+  robot.hear /i will (\bend\b|\bdestroy\b|\bkill\b) you/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "Not before I kill you, @#{sender}! TIMMY!!"
 
@@ -302,7 +302,7 @@ module.exports = (robot) ->
     res.send (res.random users).split(" ")[0] + " " + res.match[2] + "!"
 
   # google
-  robot.respond /(goog(le|le me))? (.*)/i, (res) ->
+  robot.respond /\b(goog(le me|le))?\b (.*)/i, (res) ->
     googleMe res, res.match[3], (url) ->
       res.send "It looks like this might help you on your search :mag:\n#{url}"
 
