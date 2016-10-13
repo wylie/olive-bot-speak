@@ -192,12 +192,17 @@ module.exports = (robot) ->
     res.reply res.random thedie
 
   robot.respond /(eightball|8ball)(.*)/i, (res) ->
-    res.reply res.random ball
+    res.reply "#{res.random ball} :magic8ball:"
 
   # hi
   robot.respond /(\bhi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
+
+  # kick your butt
+  robot.respond /(what\scan\syou\sdo\stimmy)/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "I can kick your ass, @#{sender}! :knife: TIMMY!!"
 
   # brother
   robot.hear /(\bbrother\b)/i, (msg) ->
