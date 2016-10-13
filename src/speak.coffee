@@ -1166,20 +1166,9 @@ module.exports = (robot) ->
     res.send "@#{sender}, thanks for changing the channel topic to *#{res.message.text}*"
 
   # new user enter room welcome
-  robot.enter (msg) ->
-    msg.http("http://dukeofcheese.com/dev/hubot/timmy/enter.json")
-      .get() (err, res, body) ->
-        json = JSON.parse(body)
-        switch res.statusCode
-          when 200
-            num = Math.floor(Math.random() * json.enter.length)
-            msg.send json.enter[num]
-          else
-            msg.send "..."
-
-    randomReply = res.random enterReplies
+  robot.enter (res) ->
     sender = res.message.user.name.toLowerCase()
-    res.send "#{randomReply}, Hi, @#{sender}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
+    res.send "Hi, @#{sender}, I'm Timmy and I'm here to help you out with things. You can type `Timmy help` to see all the things I can lend a hand with."
 
   robot.respond /(who|qui) (.+)\?/i, (res) ->
     users = []
