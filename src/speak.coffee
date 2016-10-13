@@ -331,8 +331,8 @@ module.exports = (robot) ->
   # google
   robot.respond /(google)( me)? (.*)/i, (res) ->
     googleMe res, res.match[3], (url) ->
-      # res.send "I found this link to have all the info on '#{query}' that you might ever need" + url
-      res.send url
+      res.send "I found this link to have all the info on '#{query}' that you might ever need: #{url}"
+      # res.send url
 
   googleMe = (msg, query, cb) ->
     msg.http('http://www.google.com/search')
@@ -346,7 +346,7 @@ module.exports = (robot) ->
       res.send url
 
   youtubeMe = (msg, query, cb) ->
-    msg.http('https://www.youtube.com/search')
+    msg.http('https://www.googleapis.com/youtube/v3/search')
       .query(q: query)
       .get() (err, res, body) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
