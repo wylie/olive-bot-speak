@@ -157,9 +157,7 @@ module.exports = (robot) ->
     songArtist = msg.match[2]
     songArtist = songArtist.replace(/\s/i,'%20')
     myUrl = "http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songTitle}";
-    # msg.send myUrl
     msg.http(myUrl)
-    # msg.http("http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songTitle}")
       .get() (err, res, body) ->
         json = JSON.parse(body)
         switch res.statusCode
@@ -196,10 +194,8 @@ module.exports = (robot) ->
   robot.respond /(eightball|8ball)(.*)/i, (res) ->
     res.reply res.random ball
 
-  # LISTEN
-
   # hi
-  robot.hear /(\bhi\b)/gi, (res) ->
+  robot.respond /(\bhi\b)/gi, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send "HI @#{sender}! TIMMY!!"
 
@@ -215,20 +211,6 @@ module.exports = (robot) ->
           else
             msg.send "..."
 
-  # cat(s)
-  robot.hear /(\bcat\b|\bcats\b)/i, (msg) ->
-    queryData =  {
-      token: process.env.HUBOT_SLACK_TOKEN
-      name: "cat"
-      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
-      timestamp: msg.message.id # this id is no longer undefined
-    }
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          return
-
   # roberto
   robot.hear /(\bwombat\b)/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/roberto.json")
@@ -241,25 +223,10 @@ module.exports = (robot) ->
           else
             msg.send "..."
 
-
   # get/buy(ing) beer(s)
   robot.hear /(((\bget\b)|(\bbuy\b|\bbuying\b))\s(\bbeer\b|\bbeers\b))/i, (res) ->
     sender = res.message.user.name.toLowerCase()
     res.send ":beers: are on @#{sender} tonight! TIMMY!!"
-
-  # beer
-  robot.hear /\bbeer\b/i, (msg) ->
-    queryData =  {
-      token: process.env.HUBOT_SLACK_TOKEN
-      name: "beer"
-      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
-      timestamp: msg.message.id # this id is no longer undefined
-    }
-    if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          return
 
   # shut up
   robot.hear /(\bshut up\b)/gmi, (res) ->
@@ -387,6 +354,34 @@ module.exports = (robot) ->
   ## ---------------
   ## EMOJI RESPONSES
   ## ---------------
+  # beer
+  robot.hear /\bbeer\b/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "beer"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # cat(s)
+  robot.hear /(\bcat\b|\bcats\b)/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "cat"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
   # kanye
   robot.hear /\bkanye\b/i, (msg) ->
     queryData =  {
