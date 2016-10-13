@@ -321,6 +321,7 @@ module.exports = (robot) ->
     sender = res.message.user.name.toLowerCase()
     res.send "So long, @#{sender} :wave: TIMMY!!"
 
+  # who's in this room
   robot.respond /(who|qui) (.+)\?/i, (res) ->
     users = []
     for own key, user of robot.brain.users
@@ -330,7 +331,7 @@ module.exports = (robot) ->
   # google
   robot.respond /(google)( me)? (.*)/i, (res) ->
     googleMe res, res.match[3], (url) ->
-      res.send url
+      res.send "I found this link to have all the info on '#{query}' that you might ever need" url
 
   googleMe = (msg, query, cb) ->
     msg.http('http://www.google.com/search')
