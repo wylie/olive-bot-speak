@@ -339,6 +339,17 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
+  # youtube
+  robot.respond /(video)( me)? (.*)/i, (res) ->
+    youtubeMe res, res.match[3], (url) ->
+      res.send url
+
+  youtubeMe = (msg, query, cb) ->
+    msg.http('https://www.youtube.com/search')
+      .query(q: query)
+      .get() (err, res, body) ->
+        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
+
   # days of the week
   setInterval (->
     time = new Date
