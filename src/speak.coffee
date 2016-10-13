@@ -227,7 +227,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # roberto
@@ -260,7 +259,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # shut up
@@ -292,23 +290,21 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # 100
-  robot.hear /\b(awesome|success)\b/i, (msg) ->
+  robot.hear /\b(awesome|success)\b/i, (res) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "100"
-        channel: msg.message.rawMessage.channel
-        timestamp: msg.message.id
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
       }
 
     if (queryData.timestamp?)
-      msg.http("https://slack.com/api/reactions.add")
+      res.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # hamburger
@@ -324,7 +320,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # star
@@ -340,7 +335,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # lee
@@ -356,7 +350,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # sunrise
@@ -372,7 +365,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # sushi
@@ -388,7 +380,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # coffee
@@ -404,7 +395,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # dickbutt
@@ -420,7 +410,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # computer
@@ -436,7 +425,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # moneybag
@@ -452,7 +440,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # the_horns
@@ -468,7 +455,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # medal
@@ -484,7 +470,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # amazon
@@ -500,7 +485,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # esimons
@@ -516,7 +500,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   robot.hear /\bro(b|bs|berto|bsface|bsfault)\b/i, (msg) ->
@@ -531,7 +514,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
 
@@ -548,7 +530,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # rbl
@@ -564,7 +545,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # greg-jones
@@ -580,7 +560,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # wylie
@@ -596,7 +575,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # burrito
@@ -612,7 +590,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # meat_on_bone
@@ -628,7 +605,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # my_little_pony
@@ -644,7 +620,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # flowdock
@@ -660,7 +635,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # starbucks
@@ -676,7 +650,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # hocho
@@ -692,7 +665,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # middle_finger
@@ -708,7 +680,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # appleinc
@@ -724,7 +695,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # google
@@ -740,7 +710,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # git
@@ -756,7 +725,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # github
@@ -772,7 +740,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # facebook
@@ -788,7 +755,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # drupal
@@ -804,7 +770,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # amy
@@ -820,7 +785,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # keanu
@@ -836,7 +800,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # spiderman
@@ -852,7 +815,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # starwars
@@ -868,7 +830,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # empire
@@ -884,7 +845,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # rebel
@@ -900,7 +860,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # darth_vader
@@ -916,7 +875,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # cheese
@@ -932,7 +890,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # skull
@@ -948,7 +905,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # photoshop
@@ -964,7 +920,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # surprise
@@ -980,7 +935,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # flamingo
@@ -996,7 +950,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # peach
@@ -1012,7 +965,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # chicken
@@ -1028,7 +980,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # slack
@@ -1044,7 +995,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # pepsi
@@ -1060,7 +1010,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
 
   # double test
@@ -1109,8 +1058,7 @@ module.exports = (robot) ->
         msg.http("https://slack.com/api/reactions.add")
           .query(queryData)
           .post() (err, res, body) ->
-            #TODO: error handling
-            return
+              return
 
   # add reaction
   # robot.hear /\bclocks?\b/i, (msg) ->
@@ -1157,7 +1105,7 @@ module.exports = (robot) ->
             num = Math.floor(Math.random() * json.phrases.length)
             robot.send room: 'general', json.phrases[num];
           else
-            msg.send "..."
+            res.send "..."
   ), 100000000)
 
   # ask about the channel topic change
@@ -1185,7 +1133,6 @@ module.exports = (robot) ->
       msg.http("https://slack.com/api/reactions.add")
         .query(queryData)
         .post() (err, res, body) ->
-          #TODO: error handling
           return
     
   robot.respond /(who|qui) (.+)\?/i, (res) ->
@@ -1207,7 +1154,6 @@ module.exports = (robot) ->
     if hour < 12
       suff = 'am'
     if hour > 12
-      # hour = hour - 4
       suff = 'pm'
     if hour == 0
       hour = 12
@@ -1244,4 +1190,3 @@ module.exports = (robot) ->
             msg.send "Good morning, @#{sender}! " + json.speak[num]
           else
             msg.send "..."
-    
