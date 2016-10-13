@@ -2,8 +2,6 @@
 #   Let's hear Hubot speak!
 #
 # Commands:
-#   hubot clear log - Clear the daily log
-#   hubot daily log - Find out how many units of milk have been logged today
 #   hubot eightball - Get a Magic Eight Ball answer
 #   hubot flip a coin - Flip a coin
 #   hubot log N - Log N units of milk
@@ -43,8 +41,6 @@ ball = [
 ]
 
 module.exports = (robot) ->
-
-  # RESPOND
 
   babyName = 'Oslo'
   units = 'ounces'
@@ -137,7 +133,7 @@ module.exports = (robot) ->
   # room
   robot.respond /room/i, (res) ->
     room = res.message.room
-    res.send "This room is: ##{room}"
+    res.send "This room is: ##{room} :house_with_garden:"
 
   robot.respond /lyrics '(.*)'/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
@@ -192,7 +188,7 @@ module.exports = (robot) ->
     res.reply res.random thedie
 
   robot.respond /(eightball|8ball)(.*)/i, (res) ->
-    res.reply "#{res.random ball} :magic8ball:"
+    res.reply "#{res.random ball} :magic8ball: TIMMEH!!"
 
   # hi
   robot.respond /(\bhi\b)/gi, (res) ->
