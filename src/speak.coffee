@@ -342,7 +342,7 @@ module.exports = (robot) ->
   # youtube
   robot.respond /(youtube|yt)( me)? (.*)/i, (msg) ->
     query = msg.match[3]
-    msg.http("http://gdata.youtube.com/feeds/api/videos")
+    msg.http('https://www.googleapis.com/youtube/v3/search')
       .query({
         orderBy: "relevance"
         'max-results': 15
@@ -357,14 +357,13 @@ module.exports = (robot) ->
         video.link.forEach (link) ->
           if link.rel is "alternate" and link.type is "text/html"
             msg.send link.href
-
-
   
   # robot.respond /(video)( me)? (.*)/i, (res) ->
   #   youtubeMe res, res.match[3], (url) ->
   #     res.send url
   # 
   # youtubeMe = (msg, query, cb) ->
+  #   msg.http("http://gdata.youtube.com/feeds/api/videos")
   #   msg.http('https://www.googleapis.com/youtube/v3/search')
   #     .query(q: query)
   #     .get() (err, res, body) ->
