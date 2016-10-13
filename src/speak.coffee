@@ -1165,11 +1165,29 @@ module.exports = (robot) ->
     sender = res.message.user.name.toLowerCase()
     res.send "@#{sender}, thanks for changing the channel topic to *#{res.message.text}*"
 
-  # new user enter room welcome
+  # user enters room
   robot.enter (res) ->
     sender = res.message.user.name.toLowerCase()
-    res.send "Hi, @#{sender}, I'm Timmy and I'm here to help you out with things. You can type `Timmy help` to see all the things I can lend a hand with."
+    res.send "Everybody give a warm welcome to @#{sender}! :wave: I'm Timmy and I'm here to help. Type `Timmy help` to see all my actions. TIMMY!!"
 
+  # user leaves room
+  robot.leave (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "So long, @#{sender}!"
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "wave"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          #TODO: error handling
+          return
+    
   robot.respond /(who|qui) (.+)\?/i, (res) ->
     users = []
     for own key, user of robot.brain.users
