@@ -340,34 +340,15 @@ module.exports = (robot) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
   # youtube
-  # robot.respond /(youtube|yt)( me)? (.*)/i, (msg) ->
-  robot.respond /(video)( me)? (.*)/i, (msg) ->
-    query = msg.match[3]
-    msg.http('https://www.googleapis.com/youtube/v3/search')
-      .query({
-        orderBy: "relevance"
-        'max-results': 15
-        alt: 'json'
-        q: query
-      })
-      .get() (err, res, body) ->
-        videos = JSON.parse(body)
-        videos = videos.feed.entry
-        video  = msg.random videos
-
-        video.link.forEach (link) ->
-          if link.rel is "alternate" and link.type is "text/html"
-            msg.send link.href
+  robot.respond /(video)( me)? (.*)/i, (res) ->
+    youtubeMe res, res.match[3], (url) ->
+      res.send url
   
-  # robot.respond /(video)( me)? (.*)/i, (res) ->
-  #   youtubeMe res, res.match[3], (url) ->
-  #     res.send url
-  # 
-  # youtubeMe = (msg, query, cb) ->
-  #   msg.http('https://www.googleapis.com/youtube/v3/search')
-  #     .query(q: query)
-  #     .get() (err, res, body) ->
-  #       cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
+  youtubeMe = (msg, query, cb) ->
+    msg.http('https://www.googleapis.com/youtube/v3/search')
+      .query(q: query)
+      .get() (err, res, body) ->
+        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
 
   # days of the week
   setInterval (->
