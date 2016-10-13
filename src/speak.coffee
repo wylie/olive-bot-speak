@@ -302,7 +302,7 @@ module.exports = (robot) ->
     res.send (res.random users).split(" ")[0] + " " + res.match[2] + "!"
 
   # google
-  robot.respond /(google) (.*)/i, (res) ->
+  robot.respond /(google)? (.*)/i, (res) ->
     googleMe res, res.match[3], (url) ->
       res.send "It looks like this might help you on your search :mag:\n#{url}"
 
