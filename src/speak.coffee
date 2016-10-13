@@ -340,7 +340,8 @@ module.exports = (robot) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
   # youtube
-  robot.respond /(youtube|yt)( me)? (.*)/i, (msg) ->
+  # robot.respond /(youtube|yt)( me)? (.*)/i, (msg) ->
+  robot.respond /(video)( me)? (.*)/i, (msg) ->
     query = msg.match[3]
     msg.http('https://www.googleapis.com/youtube/v3/search')
       .query({
@@ -363,7 +364,6 @@ module.exports = (robot) ->
   #     res.send url
   # 
   # youtubeMe = (msg, query, cb) ->
-  #   msg.http("http://gdata.youtube.com/feeds/api/videos")
   #   msg.http('https://www.googleapis.com/youtube/v3/search')
   #     .query(q: query)
   #     .get() (err, res, body) ->
