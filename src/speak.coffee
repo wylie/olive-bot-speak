@@ -303,7 +303,7 @@ module.exports = (robot) ->
 
   # google
   robot.respond /(google)? (.*)/i, (res) ->
-    googleMe res, res.match[3], (url) ->
+    googleMe res, res.match[2], (url) ->
       res.send "It looks like this might help you on your search :mag:\n#{url}"
 
   googleMe = (msg, query, cb) ->
