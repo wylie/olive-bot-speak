@@ -304,7 +304,7 @@ module.exports = (robot) ->
   # google
   robot.respond /(google)( me)? (.*)/i, (res) ->
     googleMe res, res.match[3], (url) ->
-      res.send "It looks like this might help you on your search\n#{url}"
+      res.send "It looks like this might help you on your search :mag:\n#{url}"
 
   googleMe = (msg, query, cb) ->
     msg.http('http://www.google.com/search')
