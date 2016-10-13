@@ -644,7 +644,7 @@ module.exports = (robot) ->
           return
 
   # rbl
-  robot.hear /\br(yan\sleach|yan|leach)\b/i, (res) ->
+  robot.hear /\br(yan\sleach|yan|leach|bl)\b/i, (res) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "rbl"
