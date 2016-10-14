@@ -673,6 +673,21 @@ module.exports = (robot) ->
         .post() (err, res, body) ->
           return
 
+  # trent
+  robot.hear /\b(trent|dragonegger2)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "trent"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
   # wylie
   robot.hear /\bwy(lie|liefisher)\b/i, (res) ->
     queryData =  {
