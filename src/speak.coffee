@@ -313,15 +313,15 @@ module.exports = (robot) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
   # youtube
-  robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
-    youtubeMe res, res.match[3], (url) ->
-      res.send url
+  # robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
+  #   youtubeMe res, res.match[3], (url) ->
+  #     res.send url
   
-  youtubeMe = (msg, query, cb) ->
-    msg.http('https://www.googleapis.com/youtube/v3/search')
-      .query(q: query)
-      .get() (err, res, body) ->
-        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
+  # youtubeMe = (msg, query, cb) ->
+  #   msg.http('https://www.googleapis.com/youtube/v3/search')
+  #     .query(q: query)
+  #     .get() (err, res, body) ->
+  #       cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
 
   # days of the week
   setInterval (->
