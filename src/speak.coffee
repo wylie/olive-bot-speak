@@ -2,80 +2,50 @@
 #   Let's hear Hubot speak!
 #
 # Commands:
-#   hubot speak - It speaks!
+#   hubot eightball - Get a Magic Eight Ball answer
+#   hubot flip a coin - Flip a coin
 #   hubot log N - Log N units of milk
-#   hubot daily log - Find out how many units of milk have been logged today
-#   hubot clear log - Clear the daily log
-#   hubot start timer - Start the timer
 #   hubot show timer - Show the timers progress
+#   hubot roll the die - Roll the dice
+#   hubot have a [anything] - eat or drink anything
+#   hubot speak - It speaks!
+#   hubot start timer - Start the timer
 #   hubot stop timer - Stop the timer
-#   hubot biscuit - have a biscuit!
 #
 # Author:
 #   wylie
 
-noises = ['Woof', 'Bark', 'Grrr', 'Ruff']
-phrases = [
-  'Wake up and take me outside!',
-  'Are you ever going to feed me?!',
-  'Why do I get little food? I\'m still hungry.',
-  'I won\'t tell anyone what you are doing, but I would tweet about it if I had thumbs.',
-  'Throwing the ball isn\'t that difficult when I\'m the one chasing it.',
-  'Are you really gonna drink wine alone on a Friday night? I\'m snapchatting this to all my friends. No judgement though.',
-  'Yes I shed a lot, but I want to be a lap dog. Don\'t you have dreams?',
-  'Why can\'t I pee in the house if you can?',
-  'Can you turn on Animal Planet? The Puppy Bowl is this Sunday!',
-  'I have crush on the dog down the street.',
-  'I don\'t like the thunder! Stop laughing at me!',
-  'Why do you always step on me?',
-  'I\'m very selective. You can\'t just bring a random dog here and expect me to like them.',
-  'Offering to give me a treat, then forgetting you made that promise sucks. Are you Satan?',
-  'How would you feel if I put you on a leash?',
-  'Oh that boy on the park is on a leash. I feel for you kid. Respect.',
-  'Why the hell is there a tree in the house if I can\'t pee on it?',
-  'How about you go outside in the rain?',
-  'I smell bacon! I want bacon!!',
-  'While you were on your cell phone not watching me, I got lost and it\'s getting dark and I\'m scared.',
-  'Why must you talk to me like I\'m an infant? I\'m 91 years old in dog years.',
-  'I\'m about to get car-sick and you don\'t seem to care.',
-  'Okay, I just threw up. Don\'t yell at me - I warned you.',
-  'I hate getting wet. Why do I need a bath?',
-  'You tricked me! You told me we were going for a ride and then you took me to the vet.',
-  'I hate this cone.',
-  'How would you feel if I put a cone on you and watched you walk into every wall?',
-  'Why are we watching this stupid show? And why are you crying?',
-  'Why must you insist I wear this sweater? I look like an idiot.',
-  'You brought me to a house and are leaving me. Why?!',
-  'Oh you\'re going on vacation? I could use a vacation. Take me!',
-  'I\'m sorry I pooped in the house, but where the hell have you been and why are you wearing the same clothes from last night?',
-  'Can you please scratch my butt? I wouldn\'t ask you to do it if I could do it myself.',
-  'You have an entire cupboard of food. Why do I only get fed twice?',
-  'I\'m thirsty and my bowl is downstairs. Help! I\'m gonna die!',
-  'No, I don\'t want to wake up this early. Leave me be.',
-  'I just had a nightmare that the mailman was coming for me.',
-  'Speaking of the mailman, I hate him.',
-  'You are annoying me so much right now. I want to bite you.',
-  'There\'s a stranger in the house. Alert! Alert!',
-  'This snow is getting stuck to my fur and I\'m freezing my butt off.',
-  'Where do you go all day?',
-  'I don\'t trust cats. I never know where they are.',
-  'You\'re going to miss me when I die.',
-  'I\'ll haunt you if you replace me'
+thecoin = ['heads', 'tails']
+thedie = [1, 2, 3, 4, 5, 6]
+ball = [
+  "It is certain",
+  "It is decidedly so",
+  "Without a doubt",
+  "Yes – definitely",
+  "You may rely on it",
+  "As I see it, yes",
+  "Most likely",
+  "Outlook good",
+  "Signs point to yes",
+  "Yes",
+  "Reply hazy, try again",
+  "Ask again later",
+  "Better not tell you now",
+  "Cannot predict now",
+  "Concentrate and ask again",
+  "Don't count on it",
+  "My reply is no",
+  "My sources say no",
+  "Outlook not so good",
+  "Very doubtful",
 ]
 
 module.exports = (robot) ->
 
-  # RESOND
-
-  # speak
-  robot.respond /speak/i, (res) ->
-    res.send res.random noises
-
   babyName = 'Oslo'
   units = 'ounces'
-  room = '#oslo'
   # add to log
-  robot.respond /log (.*)/i, (res) ->
+  robot.respond /log ([0-9]*)/i, (res) ->
     newMilk = res.match[1]
     oldMilk = robot.brain.get('totalMilk') * 1 or 0
     robot.brain.set 'totalMilk', parseFloat(oldMilk)+parseFloat(newMilk)
@@ -141,58 +111,1078 @@ module.exports = (robot) ->
     res.reply "Total time: *#{final}*! :timer_clock: :+1:"
     robot.brain.set 'oldTime', 0
 
-  # have a biscuit
-  robot.respond /have a biscuit/i, (res) ->
-    biscuitsHad = robot.brain.get('totalBiscuits') * 1 or 0
-    if biscuitsHad > 4
-      res.reply "I'm too full..."
+  # have a soda
+  robot.respond /have a (((:.*:))|(.\w+\b))/i, (res) ->
+    stuffHad = res.match[1]
+    #res.reply stuffHad
+    stuffTotal = robot.brain.get('totalStuff') * 1 or 0
+    if stuffTotal > 4
+      res.reply "I'm too full for any more..."
     else
-      res.reply 'Sure!'
+      res.reply "Sure, I love #{stuffHad} TIMMY!!"
+    robot.brain.set 'totalStuff', stuffTotal+1
 
-    robot.brain.set 'totalBiscuits', biscuitsHad+1
   robot.respond /sleep it off/i, (res) ->
-    robot.brain.set 'totalBiscuits', 0
-    msg.reply 'zzzzz'
+    robot.brain.set 'totalStuff', 0
+    res.reply "zzzzz"
 
-  # LISTEN
+  # user
+  robot.respond /user/i, (res) ->
+    res.reply res.message.user.name
 
-  # bone?!
-  robot.hear /bone/i, (res) ->
-    res.send "I love bones!"
+  # room
+  robot.respond /room/i, (res) ->
+    room = res.message.room
+    res.send "This room is: ##{room} :house_with_garden:"
+
+  robot.respond /lyrics '(.*)'/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/olive/songs.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            songTitle = msg.match[1]
+            songLyrics = json.songs[songTitle]
+            msg.send songLyrics
+          else
+            msg.send "..."
+
+  robot.respond /song (.*) by (.*)/i, (msg) ->
+    songTitle = msg.match[1]
+    songTitle = songTitle.replace(/\s/i,'%20')
+    songArtist = msg.match[2]
+    songArtist = songArtist.replace(/\s/i,'%20')
+    myUrl = "http://api.lyricsnmusic.com/songs?api_key=085157dded76ca409d9cd41b300453&q=#{songArtist}%20#{songTitle}";
+    msg.http(myUrl)
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            msg.send myUrl
+          else
+            msg.send "..."
+
+  # speak
+  robot.respond /speak/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.speak.length)
+            msg.send json.speak[num]
+          else
+            msg.send "..."
+
+  # choose between
+  robot.respond /choose between ([^"]+)/i, (msg) ->
+      options = msg.match[1].split(' ')
+      msg.reply("Definitely \"#{msg.random options}\".")
+
+  # coin
+  robot.respond /(throw|flip|toss) a coin/i, (res) ->
+    res.reply res.random thecoin
+
+  # dice
+  robot.respond /(throw|roll|toss) the die/i, (res) ->
+    res.reply res.random thedie
+
+  robot.respond /(eightball|8ball)(.*)/i, (res) ->
+    res.reply "#{res.random ball} :magic8ball: TIMMEH!!"
+
+  # hi
+  robot.respond /(\bhi\b)/gi, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "HI @#{sender}! TIMMY!!"
+
+  # kick your butt
+  robot.respond /(what\scan\syou\sdo)/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "I can kick your ass, @#{sender}! :knife: TIMMY!!"
+
+  # sorry
+  robot.respond /(wrong\sanswer)/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "Sorry, @#{sender}, what would you have my answer be?"
 
   # brother
-  brother = ['https://whatistheexcel.com/wooobooru/_images/75c9e97e34573f1f23518e36e40050fe/212%20-%20brother%20hulk_hogan%20macro%20mean_gene_okerlund%20microphone%20sunglasses%20wwe.jpg','http://t.qkme.me/3r68xv.jpg','http://cdn.meme.am/instances/53417899.jpg','http://cdn.meme.am/instances/61855016.jpg','http://i1168.photobucket.com/albums/r486/00GreenRanger/hulkhogan_zpsb7aa8412.jpg','http://www.quickmeme.com/img/be/be450207f2ec5e423298257ca2415fab23fbf53dfb6765070c3d333a42e0a5c5.jpg','http://www.quickmeme.com/img/5f/5f3a5911b741b287a80e45e1d3e7e5af00ebffa0067f3ef6a79aa22afa73caec.jpg']
-  robot.hear /brother/i, (res) ->
-    res.send res.random brother
+  robot.hear /(\bbrother\b)/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/brother.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.brother.length)
+            msg.send json.brother[num]
+          else
+            msg.send "..."
 
-  # cats
-  cats = ['http://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg','http://www.washingtonpost.com/news/morning-mix/wp-content/uploads/sites/21/2014/09/Grumpy_Cat_Endorsement-017d7-ULFU.jpg','http://www.thaqafnafsak.com/wp-content/uploads/2014/05/Animals___Cats_Red_Cat_and_tongue_044659_29.jpg','http://static.giantbomb.com/uploads/original/3/34821/2577499-cat.jpg','http://catswallpaperhd.us/wp-content/uploads/2014/06/male-cats-mating-gsfgeo7g.jpg','https://assets.rbl.ms/435736/640x364.jpg','http://content4.video.news.com.au/NDM_-_news.com.au/150/881/parachuting_cats_648x365_2304624662-hero.jpg','http://www.pets4homes.co.uk/images/articles/1092/large/7-of-the-most-affectionate-cat-breeds-522ed069473c9.jpg','http://i.dailymail.co.uk/i/pix/2014/09/18/1411041513567_wps_11_dmvidpics_2014_09_18_at_1.jpg','http://www.amplifyingglass.com/wp-content/uploads/2014/06/sitting-cat5.jpg']
-  robot.hear /cat/i, (res) ->
-    res.send res.random cats
+  # roberto
+  robot.hear /(\bwombat\b)/i, (msg) ->
+    msg.http("http://dukeofcheese.com/dev/hubot/timmy/roberto.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.roberto.length)
+            msg.send json.roberto[num]
+          else
+            msg.send "..."
 
-  # walks?!
-  robot.hear /walk/i, (res) ->
-    res.send "Did somebody say walk?!"
+  # get/buy(ing) beer(s)
+  robot.hear /(((\bget\b)|(\bbuy\b|\bbuying\b))\s(\bbeer\b|\bbeers\b))/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send ":beers: are on @#{sender} tonight! TIMMY!!"
 
-  # beer
-  beers = [':beers: are on @gjjones: tonight!',':beers: are on @mpivnick: tonight!',':beers: are on @bobandy: tonight!',':beers: are on @esimons: tonight!',':beers: are on @wylie: tonight!',':beers: are on @slackbot: tonight!','did somebody say beer? Who wants some?','no thanks, I\'m already drunk...','http://www.leeabbamonte.com/wp-content/uploads/2015/03/Beer-1.jpg']
-  robot.hear /beer/i, (res) ->
-    res.send res.random beers
+  # shut up
+  robot.hear /(\bshut up\b)/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "No, you shut up @#{sender}! TIMMY!!"
+
+  # zombie jesus
+  robot.hear /(\bsweet\b|\bzombie\b|\bjesus\b|\bsweet jesus\b|\bzombie jesus\b|\bsweet zombie jesus\b)/i, (res) ->
+    res.send "http://rs777.pbsrc.com/albums/yy59/gaderffii/SweetZombieJesus.jpg~c200"
+
+  # the rock
+  robot.hear /(\bsmell\b|\brock\b|\bcooking\b)/i, (res) ->
+    res.send "http://www.awesomelyluvvie.com/wp-content/uploads/2014/07/the-rock-fanny-pack.jpg"
+
+  # pokemon
+  robot.hear /(caught).* (:pokemon-.*:)/i, (res) ->
+    pokemon = res.match[1]
+    sender = res.message.user.name.toLowerCase()
+    res.send "Good job catching that #{pokemon}, @#{sender}! TIMMY!!"
+
+  # kill
+  robot.hear /i will (\bend\b|\bdestroy\b|\bkill\b) you/i, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "Not before I kill you, @#{sender}! TIMMY!!"
+
+  # not now timmy
+  notNow = new RegExp "(not now #{robot.name}|#{robot.name}(, not now|\snot now))", "i"
+  robot.hear notNow, (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "If not now, when @#{sender}? TIMMY!!"
 
   # NOTICE
 
   # randomly talk throughout the day
   setInterval((->
-    num = Math.floor(Math.random() * phrases.length)
-    robot.send room: 'general', phrases[num];
-  ), Math.ceil(Math.random() * 100000000))
+    robot.http("http://dukeofcheese.com/dev/hubot/timmy/phrases.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.phrases.length)
+            robot.send room: 'general', json.phrases[num];
+          else
+            res.send "..."
+  ), 100000000)
 
   # ask about the channel topic change
-  robot.topic (res) ->
-    res.send "Good job changing the channel topic to #{res.message.text}?"
+  # robot.topic (res) ->
+  #   sender = res.message.user.name.toLowerCase()
+  #   res.send "Attention, attention! @#{sender} has changed the channel topic to *#{res.message.text}*"
 
-  # new user enter room welcome
-  enterReplies = ["Hi", "Welcome", "Hello friend", "Boy, am I glad you\re here", "We're happy to have you"]
+  # user enters room
   robot.enter (res) ->
-    randomReply = res.random enterReplies
-    res.send "#{randomReply}, I'm Olive and I'm here to help you out with things. You can type `Olive help` to see all the things I can lend a hand with."
+    sender = res.message.user.name.toLowerCase()
+    res.send "Everybody give a warm welcome to @#{sender}! :wave: I'm Timmy and I'm here to help. Type `Timmy help` to see all my actions. TIMMY!!"
+
+  # user leaves room
+  robot.leave (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "So long, @#{sender} :wave: TIMMY!!"
+
+  # who's in this room
+  robot.respond /(who|qui) (.+)\?/i, (res) ->
+    users = []
+    for own key, user of robot.brain.users
+      users.push "#{user.name}" if "#{user.name}" != robot.name
+    res.send (res.random users).split(" ")[0] + " " + res.match[2] + "!"
+
+  # google
+  robot.respond /\b(goog(le me|le))?\b (.*)/i, (res) ->
+    googleMe res, res.match[3], (url) ->
+      res.send "It looks like this might help you on your search :mag:\n#{url}"
+
+  googleMe = (msg, query, cb) ->
+    msg.http('http://www.google.com/search')
+      .query(q: query)
+      .get() (err, res, body) ->
+        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
+
+  # youtube
+  robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
+    youtubeMe res, res.match[3], (url) ->
+      res.send url
+
+  youtubeMe = (msg, query, cb) ->
+    msg.http('https://www.googleapis.com/youtube/v3/search')
+      .query(q: query)
+      .get() (err, res, body) ->
+        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
+
+  # days of the week
+  setInterval (->
+    time = new Date
+    day = time.getDay()
+    hour = time.getHours()
+    minute = time.getMinutes()
+    second = time.getSeconds()
+    # if hour < 12
+    #   suff = 'am'
+    # if hour > 12
+    #   suff = 'pm'
+    # if hour == 0
+    #   hour = 12
+    # Taco Tuesday
+    if day == 2 and hour == 12 and minute == 0
+      robot.send room: 'general', "Hooray, it's Taco Tuesday! :taco: TIMMY!!"
+    # Burger Friday
+    if day == 5 and hour == 12 and minute == 0
+      robot.send room: 'general', "Hooray, it's Burger Friday! :hamburger: TIMMY!!"
+    return
+  ), 60000
+
+  # Timmy good morning
+  robot.respond /good morning/i, (res) ->
+    res.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        switch res.statusCode
+          when 200
+            num = Math.floor(Math.random() * json.speak.length)
+            sender = res.message.user.name.toLowerCase()
+            res.reply "Good morning, @#{sender}! " + json.speak[num]
+          else
+            res.reply "..."
+  ## ---------------
+  ## EMOJI RESPONSES
+  ## ---------------
+  # beer
+  robot.hear /\bbeer\b/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "beer"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # cat(s)
+  robot.hear /(\bcat\b|\bcats\b)/i, (msg) ->
+    queryData =  {
+      token: process.env.HUBOT_SLACK_TOKEN
+      name: "cat"
+      channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+      timestamp: msg.message.id # this id is no longer undefined
+    }
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # kanye
+  robot.hear /\bkanye\b/i, (msg) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "kanye"
+        channel: msg.message.rawMessage.channel
+        timestamp: msg.message.id
+      }
+
+    if (queryData.timestamp?)
+      msg.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # 100
+  robot.hear /\b(awesome|success)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "100"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # hamburger
+  robot.hear /\b(ham)|burger\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "hamburger"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # star
+  robot.hear /\b(props|star)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "star"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # lee
+  robot.hear /\blee\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "lee"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # sunrise
+  robot.hear /\b(good\smorning|morning)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "sunrise"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # sushi
+  robot.hear /\bsushi\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "sushi"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # coffee
+  robot.hear /\bcoffee\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "coffee"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # dickbutt
+  robot.hear /\b(dick|butt|dickbutt|richard)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "dickbutt"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # computer
+  robot.hear /\b(laptop|computer|work|working)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "computer"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # moneybag
+  robot.hear /\b(paid|money|cash|expensive|expenses|riches)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "moneybag"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # the_horns
+  robot.hear /\brock(\son|er|\sand\sroll|\s&\sroll|in|)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "the_horns"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # medal
+  robot.hear /\b(good\sjob|well\sdone)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "medal"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # amazon
+  robot.hear /\bamazon\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "amazon"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # esimons
+  robot.hear /\be(van\ssimons|van|simons)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "esimons"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  robot.hear /\bro(b|bs|berto|bsface|bsfault)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "robsface"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+
+  # matt-pivnick
+  robot.hear /\bm(att\spivnick|att|pivnick)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "matt-pivnick"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # rbl
+  robot.hear /\br(yan\sleach|yan|leach|bl)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "rbl"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # greg-jones
+  robot.hear /\bg(reg|jjones)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "greg-jones"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # wylie
+  robot.hear /\bwy(lie|liefisher)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "wylie"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # burrito
+  robot.hear /\bburrito\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "burrito"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # meat_on_bone
+  robot.hear /\bbbq\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "meat_on_bone"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # my_little_pony
+  robot.hear /\b(rob|robs|roberto|robsface|robsfault)\b|\b(pony|my\slittle\spony)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "my_little_pony"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # flowdock
+  robot.hear /\bflowdock\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "flowdock"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # starbucks
+  robot.hear /\bstarbucks\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "starbucks"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # hocho
+  robot.hear /\b(stab|knife|cut\syou|end\syou|destroy\syou)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "hocho"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # middle_finger
+  robot.hear /\b(fuck|fucker|fuckers)\b|\b(ass|asshole|assholes)\b|\b(jerk|jerks)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "middle_finger"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # appleinc
+  robot.hear /\b(os\sx|apple|mac|macintosh|iphone|apple\swatch)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "appleinc"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # google
+  robot.hear /\b(google|search)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "google"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # git
+  robot.hear /\bgit\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "git"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # github
+  robot.hear /\bgithub\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "github"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # facebook
+  robot.hear /\bfacebook\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "facebook"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # drupal
+  robot.hear /\b(amy|ooh\sooh|um|drupal)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "drupal"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # amy
+  robot.hear /\b(amy|ooh\sooh|um|drupal)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "amy"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # keanu
+  robot.hear /\b(w(hoa|hoah|oah))|(keanu)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "keanu"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # spiderman
+  robot.hear /\bspid(erman|ey|er)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "spiderman"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # starwars
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire|rebel)\b|\b(darth\svader|darth|vader|anakin)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "starwars"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # empire
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(darth\svader|darth|vader|anakin)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "starwars_empire"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # rebel
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(rebel)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "starwars_rebel"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # darth_vader
+  robot.hear /\b(star\swars|starwars|rogue\sone)\b|\b(empire)\b|\b(father|darth\svader|darth|vader|anakin)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "starwars_darth_vader"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # cheese
+  robot.hear /\bcheese\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "cheese"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # skull
+  robot.hear /\b(skull|cheese|die)\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "skull"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # photoshop
+  robot.hear /\bphotoshop\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "photoshop"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # surprise
+  robot.hear /\bsurprise\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "surprise"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # flamingo
+  robot.hear /\bflamingo\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "flamingo"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # peach
+  robot.hear /\b(peach|bu(tt|tts))\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "peach"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # chicken
+  robot.hear /\bchicken\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "chicken"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # slack
+  robot.hear /\bslack\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "slack"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # pepsi
+  robot.hear /\bpepsi\b/i, (res) ->
+    queryData =  {
+        token: process.env.HUBOT_SLACK_TOKEN
+        name: "pepsi"
+        channel: res.message.rawMessage.channel
+        timestamp: res.message.id
+      }
+
+    if (queryData.timestamp?)
+      res.http("https://slack.com/api/reactions.add")
+        .query(queryData)
+        .post() (err, res, body) ->
+          return
+
+  # double test
+  robot.hear /\bi(ts|t's)\snot\srobs\sfault\b/i, (res) ->
+    smpl = [
+      "nyancat_big"
+      "bomb"
+      "star"
+      "aw_yeah"
+      "taco"
+      "dickbutt"
+      "middle_finger"
+      "beer"
+      "matt-pivnick"
+      "sausage_punch"
+      "robsface"
+      "esimons"
+      "wylie"
+      "rabbit_dance_pose"
+      "lee"
+      "greg-jones"
+      "tangotucan"
+      "pump_girl"
+      "my_little_pony"
+      "skull"
+      "timmy"
+      "bmo"
+      "keanu"
+      "futurama_fry"
+      "kanye"
+      "empire"
+      "rebel"
+      "cheese"
+    ]
+    x = 0
+    while x < smpl.length
+      queryData =  {
+          token: process.env.HUBOT_SLACK_TOKEN
+          name: smpl[x]
+          channel: res.message.rawMessage.channel
+          timestamp: res.message.id
+        }
+      x++
+
+      if (queryData.timestamp?)
+        res.http("https://slack.com/api/reactions.add")
+          .query(queryData)
+          .post() (err, res, body) ->
+              return
+
+  # add reaction
+  # robot.hear /\bclocks?\b/i, (msg) ->
+  #   queryData =  {
+  #       token: process.env.HUBOT_SLACK_TOKEN
+  #       name: "bomb"
+  #       channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
+  #       timestamp: msg.message.id # this id is no longer undefined
+  #     }
+  #
+  #   if (queryData.timestamp?)
+  #     msg.http("https://slack.com/api/reactions.add")
+  #       .query(queryData)
+  #       .post() (err, res, body) ->
+  #         #TODO: error handling
+  #         return
