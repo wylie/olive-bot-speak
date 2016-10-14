@@ -279,6 +279,16 @@ module.exports = (robot) ->
             res.send "..."
   ), 100000000)
 
+  # final = document.getElementById('final')
+
+  today = new Date()
+  day = date.getDay()
+  if day != 3
+    week = 604800000
+    birthday = new Date(2015,11,9,6,37) # set birthday
+    numWeeks = Math.round(Math.abs((birthday.getTime() - today.getTime())/(week)))
+    robot.send room: 'oslo', 'Oslo is #{numWeeks} old today!'
+
   # ask about the channel topic change
   # robot.topic (res) ->
   #   sender = res.message.user.name.toLowerCase()
