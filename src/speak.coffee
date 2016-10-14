@@ -163,7 +163,7 @@ module.exports = (robot) ->
             msg.send "..."
 
   # speak
-  robot.respond /speak/i, (msg) ->
+  robot.respond /\bspeak\b/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
