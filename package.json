@@ -1,5 +1,5 @@
 {
-  "name": "olive-bot-speak",
+  "name": "timmy-bot",
   "version": "0.0.1",
   "description": "It speaks!",
   "main": "index.coffee",
@@ -10,9 +10,8 @@
   },
   "keywords": [
     "hubot",
-    "olive",
-    "olive-bot",
-    "dog",
+    "timmy",
+    "timmy-bot",
     "speak"
   ],
   "license": "MIT",
