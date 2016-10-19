@@ -16,13 +16,13 @@
     "speak"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/wylie/olive-bot-speak/",
+  "homepage": "https://github.com/wylie/timmy-bot/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wylie/olive-bot-speak.git"
+    "url": "https://github.com/wylie/timmy-bot.git"
   },
   "bugs": {
-    "url": "https://github.com/wylie/olive-bot-speak/issues"
+    "url": "https://github.com/wylie/timmy-bot/issues"
   },
   "dependencies": {
     "coffee-script": "~1.6",
