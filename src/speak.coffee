@@ -163,7 +163,7 @@ module.exports = (robot) ->
             msg.send "..."
 
   # speak
-  robot.respond /speak/i, (msg) ->
+  robot.respond /\bspeak\b/i, (msg) ->
     msg.http("http://dukeofcheese.com/dev/hubot/timmy/speak.json")
       .get() (err, res, body) ->
         json = JSON.parse(body)
@@ -280,9 +280,9 @@ module.exports = (robot) ->
   ), 100000000)
 
   # ask about the channel topic change
-  # robot.topic (res) ->
-  #   sender = res.message.user.name.toLowerCase()
-  #   res.send "Attention, attention! @#{sender} has changed the channel topic to *#{res.message.text}*"
+  robot.topic (res) ->
+    sender = res.message.user.name.toLowerCase()
+    res.send "@#{sender}, thanks for changing the channel topic to *#{res.message.text}*"
 
   # user enters room
   robot.enter (res) ->
@@ -313,15 +313,15 @@ module.exports = (robot) ->
         cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, Google had zero results for '#{query}'"
 
   # youtube
-  robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
-    youtubeMe res, res.match[3], (url) ->
-      res.send url
-
-  youtubeMe = (msg, query, cb) ->
-    msg.http('https://www.googleapis.com/youtube/v3/search')
-      .query(q: query)
-      .get() (err, res, body) ->
-        cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
+  # robot.respond /\b(vid(eo me|eo))?\b (.*)/i, (res) ->
+  #   youtubeMe res, res.match[3], (url) ->
+  #     res.send url
+  
+  # youtubeMe = (msg, query, cb) ->
+  #   msg.http('https://www.googleapis.com/youtube/v3/search')
+  #     .query(q: query)
+  #     .get() (err, res, body) ->
+  #       cb body.match(/class="r"><a href="\/url\?q=([^"]*)(&amp;sa.*)">/)?[1] || "Sorry, YouTube had zero results for '#{query}'"
 
   # days of the week
   setInterval (->
@@ -330,17 +330,17 @@ module.exports = (robot) ->
     hour = time.getHours()
     minute = time.getMinutes()
     second = time.getSeconds()
-    # if hour < 12
-    #   suff = 'am'
-    # if hour > 12
-    #   suff = 'pm'
+    if hour < 12
+      suff = 'am'
+    if hour > 12
+      suff = 'pm'
     # if hour == 0
-    #   hour = 12
+      # hour = 12
     # Taco Tuesday
-    if day == 2 and hour == 12 and minute == 0
+    if day == 2 and hour == 8 and minute == 0
       robot.send room: 'general', "Hooray, it's Taco Tuesday! :taco: TIMMY!!"
     # Burger Friday
-    if day == 5 and hour == 12 and minute == 0
+    if day == 5 and hour == 8 and minute == 0
       robot.send room: 'general', "Hooray, it's Burger Friday! :hamburger: TIMMY!!"
     return
   ), 60000
@@ -663,21 +663,6 @@ module.exports = (robot) ->
     queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
         name: "greg-jones"
-        channel: res.message.rawMessage.channel
-        timestamp: res.message.id
-      }
-
-    if (queryData.timestamp?)
-      res.http("https://slack.com/api/reactions.add")
-        .query(queryData)
-        .post() (err, res, body) ->
-          return
-
-  # trent
-  robot.hear /\b(trent|dragonegger2)\b/i, (res) ->
-    queryData =  {
-        token: process.env.HUBOT_SLACK_TOKEN
-        name: "trent"
         channel: res.message.rawMessage.channel
         timestamp: res.message.id
       }
@@ -1194,7 +1179,7 @@ module.exports = (robot) ->
   #       channel: msg.message.rawMessage.channel # required with timestamp, uses rawMessage to find this
   #       timestamp: msg.message.id # this id is no longer undefined
   #     }
-  #
+  # 
   #   if (queryData.timestamp?)
   #     msg.http("https://slack.com/api/reactions.add")
   #       .query(queryData)
